@@ -1,0 +1,7 @@
+
+Y
+java:S1854"<Remove this useless assignment to local variable "usuarios".(…áİı8Ä¥Óë1
+o
+java:S6204""RReplace this usage of 'Stream.collect(Collectors.toList())' with 'Stream.toList()'(œçÖß8™ıåÔë1
+o
+java:S1602 "SRemove useless curly braces around statement and then remove useless return keyword(„×²i8Ç¥Óë1
