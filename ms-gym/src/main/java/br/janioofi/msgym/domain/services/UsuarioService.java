@@ -3,6 +3,7 @@ package br.janioofi.msgym.domain.services;
 import br.janioofi.msgym.domain.DTOS.UsuarioDTO;
 import br.janioofi.msgym.domain.entities.Usuarios;
 import br.janioofi.msgym.domain.repositories.UsuarioRepository;
+import br.janioofi.msgym.exceptions.RecordNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class UsuarioService {
     private ModelMapper modelMapper = new ModelMapper().registerModule(new org.modelmapper.record.RecordModule());
 
     public UsuarioDTO findById(Long id){
-        return modelMapper.map(repository.findById(id).orElseThrow(() -> new RuntimeException("Error")), UsuarioDTO.class);
+        return modelMapper.map(repository.findById(id).orElseThrow(() -> new RecordNotFoundException("Nenhum usuário encontrado com o ID: " + id)), UsuarioDTO.class);
     }
 
     public UsuarioDTO create(UsuarioDTO user){

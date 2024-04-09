@@ -17,8 +17,6 @@ Jms-gym/src/main/java/br/janioofi/msgym/domain/services/UsuarioService.java,c\4
 Qms-gym/src/main/java/br/janioofi/msgym/domain/repositories/UsuarioRepository.java,b\9\b9ae6dff30961ab8b14687b0ef4e2ce54ab471fb
 r
 Bms-gym/src/main/java/br/janioofi/msgym/domain/DTOS/UsuarioDTO.java,f\1\f1e2ad3a024538e3a1ef18c342b149ab5159b439
-o
-?ms-gym/src/main/java/br/janioofi/msgym/config/RecordModule.java,5\b\5bd138c5e3ed942732cb3a33e09067c2c22f829d
 y
 Ims-gym/src/main/java/br/janioofi/msgym/controllers/UsuarioController.java,0\8\08265f8b72f4fd3240296b040a646ab3e5a7469c
 G
@@ -195,3 +193,11 @@ Q.idea/sonarlint/securityhotspotstore/4/2/42512e6c498ebe0aaacdd23558b005cbbf1d78
 Q.idea/sonarlint/securityhotspotstore/4/3/433f9af26b995c0df7ecde1f2ca5d5a263e2ca2a,2\2\221a5ab83a071d39666c531674fc8119aeffb829
 Å
 Q.idea/sonarlint/securityhotspotstore/b/6/b6f8b6a3d402dd5a7a5b2a1d5e53ad2826e24bfc,e\b\eba1b904109d9a407189097dffa5947f9833d674
+w
+Gms-gym/src/main/java/br/janioofi/msgym/exceptions/ValidationErrors.java,4\d\4d95b84d0661f1ab98631fd8302a06bff82eaa43
+s
+Cms-gym/src/main/java/br/janioofi/msgym/exceptions/FieldMessage.java,2\c\2c97ef8daa7c539e04e9c5515aabacf1479c951b
+~
+Nms-gym/src/main/java/br/janioofi/msgym/exceptions/RecordNotFoundException.java,f\b\fbe8c3140110e2f88ea750d13723a79d2eee6f6b
+É
+Sms-gym/src/main/java/br/janioofi/msgym/controllers/ApplicationControllerAdvice.java,3\d\3d973940734aded01cac48c6614aa0edc51da897

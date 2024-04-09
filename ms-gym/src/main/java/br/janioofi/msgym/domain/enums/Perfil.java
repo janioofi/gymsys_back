@@ -2,8 +2,7 @@ package br.janioofi.msgym.domain.enums;
 
 public enum Perfil {
     ADMIN(0, "ROLE_ADMIN"),
-    PROFISSIONAL(1, "ROLE_PROFISSIONAL"),
-    CLIENTE(2, "ROLE_CLIENTE");
+    PROFISSIONAL(1, "ROLE_PROFISSIONAL");
 
     private Integer codigo;
     private String descricao;
