@@ -11,8 +11,8 @@
     </parent>
 
     <groupId>br.janioofi</groupId>
-    <artifactId>gym-ssys</artifactId>
-    <version>1.0T</version>
+    <artifactId>gymsys</artifactId>
+    <version>1.0</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -33,6 +33,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.1.0</version>
         </dependency>
 
         <dependency>

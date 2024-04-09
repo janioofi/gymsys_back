@@ -9,12 +9,11 @@
         <outputRelativeToContentRoot value="true" />
         <module name="eurekaserver" />
         <module name="ms-cloudgateway" />
-        <module name="gymsys" />
         <module name="ms-gym" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="gymsys" target="1.5" />
+      <module name="gym-ssys" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

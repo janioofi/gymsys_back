@@ -4,6 +4,7 @@ import br.janioofi.msgym.domain.DTOS.ProfissionalDTO;
 import br.janioofi.msgym.domain.entities.Profissional;
 import br.janioofi.msgym.domain.repositories.ProfissionalRepository;
 import br.janioofi.msgym.exceptions.RecordNotFoundException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class ProfissionalService {
         return modelMapper.map(repository.findById(id).orElseThrow(() -> new RecordNotFoundException("Nenhum profissional encontrado com o ID: " + id)), ProfissionalDTO.class);
     }
 
-    public ProfissionalDTO create(ProfissionalDTO profissional){
+    public ProfissionalDTO create(@Valid ProfissionalDTO profissional){
         return modelMapper.map(repository.save(modelMapper.map(profissional, Profissional.class)), ProfissionalDTO.class);
     }
 }

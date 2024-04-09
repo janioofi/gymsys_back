@@ -2,9 +2,7 @@ package br.janioofi.msgym.domain.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,9 +45,11 @@ public class Profissional {
     private String email;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
+    @Past
     private LocalDate data_nascimento;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
+    @PastOrPresent
     private LocalDate data_admissao;
 
     @OneToMany(fetch = FetchType.EAGER)

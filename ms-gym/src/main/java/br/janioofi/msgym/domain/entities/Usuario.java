@@ -10,7 +10,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Usuarios {
+public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,13 +29,13 @@ public class Usuarios {
     @Enumerated(EnumType.STRING)
     private Perfil perfil;
 
-    public Usuarios(Long id_usuario, String usuario, String senha, Perfil perfil) {
+    public Usuario(Long id_usuario, String usuario, String senha, Perfil perfil) {
         this.id_usuario = id_usuario;
         this.usuario = usuario;
         this.senha = senha;
         this.perfil = perfil;
     }
 
-    public Usuarios() {
+    public Usuario() {
     }
 }

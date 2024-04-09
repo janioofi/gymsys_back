@@ -15,13 +15,8 @@ public class ApplicationControllerAdvice {
 
     @ExceptionHandler(RecordNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ValidationErrors handleNotFoundException(RecordNotFoundException ex, HttpServletRequest request){
-        ValidationErrors field = new ValidationErrors();
-        field.setPath(request.getRequestURI());
-        field.setStatus(HttpStatus.NOT_FOUND.value());
-        field.setError("Not Found");
-        field.addErrors("Not Found Exception", ex.getMessage());
-        return field;
+    public String handleNotFoundException(RecordNotFoundException ex){
+        return ex.getMessage();
     }
 
     @ExceptionHandler(ConstraintViolationException.class)

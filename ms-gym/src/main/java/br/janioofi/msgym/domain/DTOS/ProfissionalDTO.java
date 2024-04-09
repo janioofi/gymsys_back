@@ -2,6 +2,8 @@ package br.janioofi.msgym.domain.DTOS;
 
 import br.janioofi.msgym.domain.entities.Usuario;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,7 +20,9 @@ public class ProfissionalDTO {
     private String cpf;
     private String email;
     @JsonFormat(pattern = "dd/MM/yyyy")
+    @Past
     private LocalDate data_nascimento;
+    @PastOrPresent
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate data_admissao;
     private List<Usuario> usuarios = new ArrayList<>();
