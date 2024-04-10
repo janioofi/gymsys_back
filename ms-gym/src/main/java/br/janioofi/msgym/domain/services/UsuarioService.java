@@ -35,4 +35,8 @@ public class UsuarioService {
         log.info("Novo usuário criado: " + user);
         return modelMapper.map(repository.save(modelMapper.map(user, Usuario.class)), UsuarioDTO.class);
     }
+
+    public void delete(Long id){
+        repository.deleteById(id);
+    }
 }

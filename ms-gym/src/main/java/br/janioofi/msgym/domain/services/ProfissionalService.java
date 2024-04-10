@@ -33,4 +33,8 @@ public class ProfissionalService {
         log.info("Novo profissional criado: " + profissional);
         return modelMapper.map(repository.save(modelMapper.map(profissional, Profissional.class)), ProfissionalDTO.class);
     }
+
+    public void delete(Long id){
+        repository.deleteById(id);
+    }
 }
