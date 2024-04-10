@@ -1,6 +1,6 @@
 package br.janioofi.msgym.controllers;
 
-import br.janioofi.msgym.domain.DTOS.ProfissionalDTO;
+import br.janioofi.msgym.domain.dtos.ProfissionalDTO;
 import br.janioofi.msgym.domain.services.ProfissionalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

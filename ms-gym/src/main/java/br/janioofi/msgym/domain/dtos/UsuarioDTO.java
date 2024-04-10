@@ -1,4 +1,4 @@
-package br.janioofi.msgym.domain.DTOS;
+package br.janioofi.msgym.domain.dtos;
 
 import br.janioofi.msgym.domain.enums.Perfil;
 import lombok.Data;

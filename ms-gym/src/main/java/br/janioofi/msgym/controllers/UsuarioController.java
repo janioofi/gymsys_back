@@ -1,6 +1,6 @@
 package br.janioofi.msgym.controllers;
 
-import br.janioofi.msgym.domain.DTOS.UsuarioDTO;
+import br.janioofi.msgym.domain.dtos.UsuarioDTO;
 import br.janioofi.msgym.domain.services.UsuarioService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
