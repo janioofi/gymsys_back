@@ -2,6 +2,7 @@ package br.janioofi.msgym.controllers;
 
 import br.janioofi.msgym.domain.dtos.ProfissionalDTO;
 import br.janioofi.msgym.domain.services.ProfissionalService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Profissional", description = "API Profissional")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/profissionais")

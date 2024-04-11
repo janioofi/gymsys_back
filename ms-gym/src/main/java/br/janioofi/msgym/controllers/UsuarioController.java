@@ -2,6 +2,7 @@ package br.janioofi.msgym.controllers;
 
 import br.janioofi.msgym.domain.dtos.UsuarioDTO;
 import br.janioofi.msgym.domain.services.UsuarioService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@Tag(name = "Usuário", description = "API Usuário")
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/usuarios")
 public class UsuarioController {
