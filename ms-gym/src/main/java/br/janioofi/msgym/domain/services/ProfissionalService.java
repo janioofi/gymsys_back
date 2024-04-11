@@ -38,6 +38,7 @@ public class ProfissionalService {
     }
 
     public void delete(Long id){
+        log.info("Deletando profissional com  ID: " + id);
         repository.deleteById(id);
     }
 
