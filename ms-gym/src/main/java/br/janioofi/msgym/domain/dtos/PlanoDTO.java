@@ -1,6 +1,7 @@
 package br.janioofi.msgym.domain.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class PlanoDTO {
     private Long id_plano;
     private String descricao;
