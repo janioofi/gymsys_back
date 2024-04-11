@@ -35,4 +35,9 @@ public class UsuarioController {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UsuarioDTO> update(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDTO){
+        return ResponseEntity.ok().body(service.update(id, usuarioDTO));
+    }
 }
