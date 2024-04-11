@@ -35,4 +35,9 @@ public class ProfissionalController {
         service.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProfissionalDTO> update(@PathVariable Long id, @RequestBody ProfissionalDTO profissionalDTO){
+        return ResponseEntity.ok().body(service.update(id, profissionalDTO));
+    }
 }

@@ -35,15 +35,18 @@ public class UsuarioService {
     }
 
     public UsuarioDTO create(@Valid UsuarioDTO user){
-        log.info("Novo usuário criado: " + user);
+        validaUsuario(user);
+        log.info("Criando novo usuário: " + user);
         return modelMapper.map(repository.save(modelMapper.map(user, Usuario.class)), UsuarioDTO.class);
     }
 
     public void delete(Long id){
+        log.info("Deletando usuário com  ID: " + id);
         repository.deleteById(id);
     }
 
     public UsuarioDTO update(@Valid Long id, UsuarioDTO user){
+        log.info("Atualizando usuário com  ID:  " + id + ",  com as novas informações: " + user);
         validaUsuario(user);
         return modelMapper.map(
                 repository.findById(id).map(recordFound -> {
@@ -58,7 +61,7 @@ public class UsuarioService {
     private void validaUsuario(UsuarioDTO objDTO) {
         Optional<Usuario> obj = repository.findByUsuario(objDTO.getUsuario());
 
-        if (obj.isPresent() && obj.get().getId_usuario() != objDTO.getId_usuario()) {
+        if (obj.isPresent() && !obj.get().getId_usuario().equals(objDTO.getId_usuario())) {
             throw new DataIntegrityViolationException("Usuário já existe no sistema!");
         }
     }
