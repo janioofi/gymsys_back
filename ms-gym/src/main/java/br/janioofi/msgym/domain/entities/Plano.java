@@ -29,11 +29,9 @@ public class Plano implements Serializable {
     private String descricao;
 
     @NotNull(message = "Vigência é obrigatória")
-    @NotEmpty(message = "Vigência é obrigatória")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate vigencia;
 
     @NotNull(message = "Preço é obrigatória")
-    @NotEmpty(message = "Preço é obrigatória")
     private BigDecimal preco;
 }
