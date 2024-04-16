@@ -7,11 +7,11 @@ CREATE TABLE cliente
     cpf              VARCHAR(255)                            NOT NULL,
     email            VARCHAR(255)                            NOT NULL,
     data_nascimento  date,
-    id_plano   BIGINT                                  NOT NULL,
+    id_plano         BIGINT                                  NOT NULL,
     data_cadastro    date,
     data_atualizacao TIMESTAMP WITHOUT TIME ZONE,
     CONSTRAINT pk_cliente PRIMARY KEY (id_cliente)
 );
 
 ALTER TABLE cliente
-    ADD CONSTRAINT FK_CLIENTE_ON_PLANO_ID_PLANO FOREIGN KEY (id_plano) REFERENCES plano (id_plano);
+    ADD CONSTRAINT FK_CLIENTE_ON_ID_PLANO FOREIGN KEY (id_plano) REFERENCES plano (id_plano);
