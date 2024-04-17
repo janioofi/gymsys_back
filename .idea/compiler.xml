@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="eurekaserver" />
+        <module name="ms-payment" />
         <module name="ms-cloudgateway" />
         <module name="ms-gym" />
       </profile>
@@ -21,6 +22,7 @@
       <module name="eurekaserver" options="-parameters" />
       <module name="ms-cloudgateway" options="-parameters" />
       <module name="ms-gym" options="-parameters" />
+      <module name="ms-payment" options="-parameters" />
     </option>
   </component>
 </project>
