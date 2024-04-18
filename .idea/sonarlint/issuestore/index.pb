@@ -341,3 +341,5 @@ Lms-gym/src/main/java/br/janioofi/msgym/domain/services/PagamentoService.java,f
 Kms-gym/src/main/java/br/janioofi/msgym/controllers/PagamentoController.java,d\9\d94faaf86709417e692e45e1a3f6f91dede776ac
 
 Oms-gym/src/test/java/br/janioofi/msgym/controllers/PagamentoControllerTest.java,b\0\b018b74747dfd2c04924bc9f55c33b3f3c3f9446
+€
+Pms-gym/src/test/java/br/janioofi/msgym/domain/services/PagamentoServiceTest.java,9\6\96805b15eff6e8c0cd75dbe419b2248ac367ac8c
