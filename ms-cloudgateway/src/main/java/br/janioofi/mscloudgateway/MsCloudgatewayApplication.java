@@ -19,7 +19,7 @@ public class MsCloudgatewayApplication {
     public RouteLocator routes(RouteLocatorBuilder builder){
         return builder
                 .routes()
-                .route(r -> r.path("/api/v1/usuarios/**").uri("lb://ms-gym"))
+                .route(r -> r.path("/api/v1/**").uri("lb://ms-gym"))
                 .build();
     }
 

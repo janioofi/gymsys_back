@@ -19,7 +19,6 @@
         <module>eurekaserver</module>
         <module>ms-gym</module>
         <module>ms-cloudgateway</module>
-        <module>ms-payment</module>
     </modules>
 
     <properties>

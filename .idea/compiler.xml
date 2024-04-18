@@ -8,13 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="eurekaserver" />
-        <module name="ms-payment" />
         <module name="ms-cloudgateway" />
         <module name="ms-gym" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="gym-ssys" target="17" />
+      <module name="ms-payment" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
