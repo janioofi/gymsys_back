@@ -13,15 +13,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 @SpringBootTest
 class ProfissionalControllerTest {
@@ -34,7 +34,7 @@ class ProfissionalControllerTest {
     public static final String EMAIL = "janio@gmail.com";
     public static final LocalDate DATA_NASCIMENTO = LocalDate.of(2001, 9, 7);
     public static final LocalDate DATA_ADMISSAO = LocalDate.of(2024, 1, 1);
-    public static final List<Usuario> USUARIO = new ArrayList<>();
+    public static final Set<Usuario> USUARIO = new HashSet<>();
 
     private ProfissionalDTO profissionalDTO = new ProfissionalDTO();
 

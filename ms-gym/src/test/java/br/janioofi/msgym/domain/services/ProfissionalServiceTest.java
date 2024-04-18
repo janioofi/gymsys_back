@@ -15,9 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -34,7 +32,7 @@ class ProfissionalServiceTest {
     public static final String EMAIL = "janio@gmail.com";
     public static final LocalDate DATA_NASCIMENTO = LocalDate.of(2001, 9, 7);
     public static final LocalDate DATA_ADMISSAO = LocalDate.of(2024, 1, 1);
-    public static final List<Usuario> USUARIO = new ArrayList<>();
+    public static final Set<Usuario> USUARIO = new HashSet<>();
 
     private ProfissionalDTO profissionalDTO = new ProfissionalDTO();
     private Profissional profissional = new Profissional();

@@ -175,7 +175,7 @@ class ClienteServiceTest {
     private void startCliente() {
         cliente = new Cliente(ID, NOME, SOBRENOME, APELIDO, CPF, EMAIL, DATA_NASCIMENTO, PLANO, DATA_CADASTRO, DATA_ATUALIZACAO);
         optionalCliente = Optional.of(new Cliente(ID, NOME, SOBRENOME, APELIDO, CPF, EMAIL, DATA_NASCIMENTO, PLANO, DATA_CADASTRO, DATA_ATUALIZACAO));
-        clienteDTO = new ClienteDTO(ID, NOME, SOBRENOME, APELIDO, CPF, EMAIL, DATA_NASCIMENTO, 1L, DATA_CADASTRO, DATA_ATUALIZACAO);
+        clienteDTO = new ClienteDTO(ID, NOME, SOBRENOME, APELIDO, CPF, EMAIL, DATA_NASCIMENTO, 1L);
         plano = Optional.of(new Plano(1L, "Teste",  LocalDate.now(), BigDecimal.valueOf(20)));
     }
 }
