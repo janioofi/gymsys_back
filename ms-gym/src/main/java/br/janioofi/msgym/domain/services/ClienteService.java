@@ -48,7 +48,6 @@ public class ClienteService {
         cliente.setPlano(plano);
         cliente.setData_cadastro(LocalDate.now());
         cliente.setData_nascimento(clienteDTO.getData_nascimento());
-        cliente.setData_atualizacao(clienteDTO.getData_atualizacao());
         cliente.setApelido(clienteDTO.getApelido());
         cliente.setSobrenome(clienteDTO.getSobrenome());
         repository.save(cliente);

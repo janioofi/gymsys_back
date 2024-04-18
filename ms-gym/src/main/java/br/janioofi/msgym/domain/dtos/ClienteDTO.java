@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,8 +25,4 @@ public class ClienteDTO {
     @Past
     private LocalDate data_nascimento;
     private Long plano;
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate data_cadastro = LocalDate.now();
-    @JsonFormat(pattern = "dd/MM/yyyy HH:ss")
-    private LocalDateTime data_atualizacao;
 }
