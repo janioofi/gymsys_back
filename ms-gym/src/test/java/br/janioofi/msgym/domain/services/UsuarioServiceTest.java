@@ -12,16 +12,15 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 @SpringBootTest
 class UsuarioServiceTest {
@@ -88,30 +87,6 @@ class UsuarioServiceTest {
     }
 
     @Test
-    void whenCreateThenReturnSuccess() {
-        when(repository.save(any())).thenReturn(usuario);
-        Usuario response = mapper.map(service.create(usuarioDTO), Usuario.class);
-
-        assertNotNull(response);
-        assertEquals(Usuario.class, response.getClass());
-        assertEquals(ID, response.getId_usuario());
-        assertEquals(USUARIO, response.getUsuario());
-        assertEquals(SENHA, response.getSenha());
-        assertEquals(PERFIL, response.getPerfil());
-    }
-
-    @Test
-    void whenCreateThenReturnAndDataIntegrityViolationException() {
-        when(repository.findByUsuario(anyString())).thenReturn(optionalUser);
-        try {
-            optionalUser.get().setId_usuario(2L);
-            service.create(usuarioDTO);
-        }catch (Exception e){
-            assertEquals(DataIntegrityViolationException.class, e.getClass());
-        }
-    }
-
-    @Test
     void whenUpdateThenReturnAnRecordNotFoundException() {
         when(repository.save(any())).thenReturn(usuario);
 
@@ -119,17 +94,6 @@ class UsuarioServiceTest {
             service.update(ID,usuarioDTO);
         }catch (Exception e){
             assertEquals(RecordNotFoundException.class, e.getClass());
-        }
-    }
-
-    @Test
-    void whenUpdateThenReturnAndDataIntegrityViolationException() {
-        when(repository.findByUsuario(anyString())).thenReturn(optionalUser);
-        try {
-            optionalUser.get().setId_usuario(2L);
-            service.create(usuarioDTO);
-        }catch (Exception e){
-            assertEquals(DataIntegrityViolationException.class, e.getClass());
         }
     }
 

@@ -2,7 +2,7 @@ spring:
   application:
     name: ms-gym
   datasource:
-    url: jdbc:postgresql://localhost:5432/gymsys_test
+    url: jdbc:postgresql://localhost:5432/gym
     username: postgres
     password: 12345678
     driver-class-name: org.postgresql.Driver

@@ -335,3 +335,7 @@ w
 Gms-gym/src/main/java/br/janioofi/msgym/domain/dtos/UsuarioRegistro.java,e\a\ea0de68eb1237392a0f24b8d501550b01139c2ca
 t
 Dms-gym/src/main/java/br/janioofi/msgym/domain/dtos/UsuarioLogin.java,b\a\ba551c22fc2aea0e340144b6cb86fa021420d24d
+r
+Bms-gym/src/main/java/br/janioofi/msgym/domain/entities/Perfil.java,e\a\ea1b6751778d6c5f03970fe6a43e655538ae3386
+q
+Ams-gym/src/main/java/br/janioofi/msgym/domain/dtos/PerfilDTO.java,8\e\8eed2047f3998232d96dc555e09f544972c88fc3

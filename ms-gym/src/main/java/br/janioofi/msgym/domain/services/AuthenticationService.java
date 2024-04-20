@@ -8,7 +8,6 @@ import br.janioofi.msgym.domain.repositories.UsuarioRepository;
 import br.janioofi.msgym.exceptions.BusinessException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
@@ -27,7 +25,6 @@ public class AuthenticationService {
         var usernamePassword = new UsernamePasswordAuthenticationToken(user.usuario(), user.senha());
         var auth = authenticationManager.authenticate(usernamePassword);
         var token = tokenService.generateToken((Usuario) auth.getPrincipal());
-        log.info("Logando com usuario: " + user.usuario());
         return new LoginResponse(token);
     }
 
@@ -38,7 +35,6 @@ public class AuthenticationService {
         String encryptedPassword = new BCryptPasswordEncoder().encode(user.senha());
         Usuario data = new Usuario(null, user.usuario(), encryptedPassword, user.perfil());
         repository.save(data);
-        log.info("Novo usuario cadastrado: " + user);
-        return "User registrado com sucesso";
+        return "User registered successfully";
     }
 }
