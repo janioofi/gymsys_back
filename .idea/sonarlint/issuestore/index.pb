@@ -313,3 +313,5 @@ x
 Hms-gym/src/main/java/br/janioofi/msgym/domain/services/TokenService.java,e\2\e24b9eb739d2ed2037ed067b9d05011f5e7e8520
 z
 Jms-gym/src/main/java/br/janioofi/msgym/config/security/SecurityFilter.java,c\d\cd018c7dae0fd02f3754064372f384e16544dd33
+Å
+Qms-gym/src/main/java/br/janioofi/msgym/config/security/SecurityConfiguration.java,5\1\5110b3e1993ca64b8ec96f50406a55cdc0e05e7f
