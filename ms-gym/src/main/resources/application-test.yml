@@ -11,3 +11,12 @@ spring:
       ddl-auto: update
 server:
   port: 0
+
+api:
+  security:
+    token:
+      secret: secret@!@!@
+
+eureka:
+  instance:
+    instance-id= ${spring:application:name}:${spring:application:instance_id:${random:value}}
