@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,12 +35,6 @@ public class UsuarioService {
         return modelMapper.map(repository.findById(id).orElseThrow(() -> new RecordNotFoundException("Nenhum usuário encontrado com o ID: " + id)), UsuarioDTO.class);
     }
 
-    public UsuarioDTO create(@Valid UsuarioDTO user){
-        validaUsuario(user);
-        log.info("Criando novo usuário: " + user);
-        return modelMapper.map(repository.save(modelMapper.map(user, Usuario.class)), UsuarioDTO.class);
-    }
-
     public void delete(Long id){
         log.info("Deletando usuário com  ID: " + id);
         repository.deleteById(id);
@@ -48,11 +43,12 @@ public class UsuarioService {
     public UsuarioDTO update(@Valid Long id, UsuarioDTO user){
         log.info("Atualizando usuário com  ID:  " + id + ",  com as novas informações: " + user);
         validaUsuario(user);
+        String encryptedPassword = new BCryptPasswordEncoder().encode(user.getSenha());
         return modelMapper.map(
                 repository.findById(id).map(recordFound -> {
                 recordFound.setUsuario(user.getUsuario());
                 recordFound.setPerfil(user.getPerfil());
-                recordFound.setSenha(user.getSenha());
+                recordFound.setSenha(encryptedPassword);
                 return repository.save(modelMapper.map(recordFound, Usuario.class));
                 }).orElseThrow(() -> new RecordNotFoundException("Nenhum usuário encontrado com o ID: " + id))
                 , UsuarioDTO.class);

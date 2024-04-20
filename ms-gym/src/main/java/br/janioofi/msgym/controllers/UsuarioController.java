@@ -27,11 +27,6 @@ public class UsuarioController {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<UsuarioDTO> create(@RequestBody UsuarioDTO usuario){
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(usuario));
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         service.delete(id);

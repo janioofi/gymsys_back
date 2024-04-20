@@ -1,5 +1,6 @@
 package br.janioofi.msgym.controllers;
 
+import br.janioofi.msgym.exceptions.BusinessException;
 import br.janioofi.msgym.exceptions.RecordNotFoundException;
 import br.janioofi.msgym.exceptions.ValidationErrors;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +19,13 @@ public class ApplicationControllerAdvice {
     @ExceptionHandler(RecordNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleNotFoundException(RecordNotFoundException ex){
+        log.error(ex.getMessage());
+        return ex.getMessage();
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleBusinessException(BusinessException ex){
         log.error(ex.getMessage());
         return ex.getMessage();
     }
