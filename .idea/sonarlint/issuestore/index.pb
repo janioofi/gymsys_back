@@ -311,3 +311,5 @@ Oms-gym/src/test/java/br/janioofi/msgym/controllers/PagamentoControllerTest.java
 Pms-gym/src/test/java/br/janioofi/msgym/domain/services/PagamentoServiceTest.java,9\6\96805b15eff6e8c0cd75dbe419b2248ac367ac8c
 x
 Hms-gym/src/main/java/br/janioofi/msgym/domain/services/TokenService.java,e\2\e24b9eb739d2ed2037ed067b9d05011f5e7e8520
+z
+Jms-gym/src/main/java/br/janioofi/msgym/config/security/SecurityFilter.java,c\d\cd018c7dae0fd02f3754064372f384e16544dd33
