@@ -1,4 +1,4 @@
-package br.janioofi.msgym.config.security;
+package br.janioofi.msgym.configs.security;
 
 import br.janioofi.msgym.domain.repositories.UsuarioRepository;
 import br.janioofi.msgym.domain.services.TokenService;

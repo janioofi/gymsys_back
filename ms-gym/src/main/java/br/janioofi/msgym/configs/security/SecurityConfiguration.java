@@ -1,4 +1,4 @@
-package br.janioofi.msgym.config.security;
+package br.janioofi.msgym.configs.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

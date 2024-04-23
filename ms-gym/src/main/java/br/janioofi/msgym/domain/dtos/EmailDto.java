@@ -1,4 +1,4 @@
-package br.janioofi.msemail.domain.dtos;
+package br.janioofi.msgym.domain.dtos;
 
 public record EmailDto(
     String emailTo,

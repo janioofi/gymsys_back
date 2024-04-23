@@ -1,5 +1,6 @@
 package br.janioofi.msgym.domain.services;
 
+import br.janioofi.msgym.configs.producer.EmailProducer;
 import br.janioofi.msgym.domain.dtos.ClienteDTO;
 import br.janioofi.msgym.domain.entities.Cliente;
 import br.janioofi.msgym.domain.entities.Plano;
@@ -54,11 +55,14 @@ class ClienteServiceTest {
     @Mock
     private PlanoRepository planoRepository;
 
+    @Mock
+    private EmailProducer producer;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         startCliente();
-        service = new ClienteService(repository, planoRepository);
+        service = new ClienteService(producer, repository, planoRepository);
     }
 
     @Test

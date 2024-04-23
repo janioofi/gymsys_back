@@ -1,8 +1,8 @@
 package br.janioofi.msgym.domain.services;
 
-import br.janioofi.msemail.domain.dtos.EmailDto;
-import br.janioofi.msgym.config.producer.EmailProducer;
+import br.janioofi.msgym.configs.producer.EmailProducer;
 import br.janioofi.msgym.domain.dtos.ClienteDTO;
+import br.janioofi.msgym.domain.dtos.EmailDto;
 import br.janioofi.msgym.domain.entities.Cliente;
 import br.janioofi.msgym.domain.entities.Plano;
 import br.janioofi.msgym.domain.repositories.ClienteRepository;
@@ -11,7 +11,6 @@ import br.janioofi.msgym.exceptions.RecordNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +28,6 @@ public class ClienteService {
     private final EmailProducer producer;
     private final ClienteRepository repository;
     private final PlanoRepository planoRepository;
-    private final ModelMapper mapper = new ModelMapper().registerModule(new org.modelmapper.record.RecordModule());
 
     public List<Cliente> findAll(){
         log.info("Listando todos os clientes");
@@ -41,7 +39,6 @@ public class ClienteService {
         return repository.findById(id).orElseThrow(() -> new RecordNotFoundException("Nenhum cliente encontrado com o ID: " + id));
     }
 
-    @Transactional
     public Cliente create(@Valid ClienteDTO clienteDTO){
         validaCpfEEmail(clienteDTO);
         log.info("Criando novo cliente: " + clienteDTO);
@@ -56,14 +53,7 @@ public class ClienteService {
         cliente.setApelido(clienteDTO.getApelido());
         cliente.setSobrenome(clienteDTO.getSobrenome());
         repository.save(cliente);
-        EmailDto email = new EmailDto();
-        email.setEmailTo(cliente.getEmail());
-        email.setSubject("Cadastro na Social Gym");
-        email.setText("Seja-bem vindo a nossa academia, estamos muito contentes com chegada ao nosso time. Veja alguns detalhes do seu cadastro: "+
-                "Plano: " + cliente.getPlano().getDescricao() +
-                "Valor: R$ " + cliente.getPlano().getPreco() +
-                "Data cadastro: " + cliente.getData_cadastro());
-        producer.publishMessageEmail(email);
+        sendEmailCliente(cliente);
         return repository.save(cliente);
     }
 
@@ -100,6 +90,15 @@ public class ClienteService {
         if (obj.isPresent() && !obj.get().getId_cliente().equals(clienteDTO.getId_cliente())) {
             throw new DataIntegrityViolationException("E-mail já está sendo utilizado");
         }
+    }
+
+    @Transactional
+    public void sendEmailCliente(Cliente cliente){
+        EmailDto email = new EmailDto(cliente.getEmail(), "Cadastro na Social Gym", "Seja-bem vindo a nossa academia, estamos muito contentes com sua chegada ao nosso time. \nVeja alguns detalhes do seu cadastro: "+
+                "\nPlano: " + cliente.getPlano().getDescricao() +
+                "\nValor: R$ " + cliente.getPlano().getPreco() +
+                "\nData cadastro: " + cliente.getData_cadastro());
+        producer.publishMessageEmail(email);
     }
 
 }

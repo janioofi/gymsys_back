@@ -1,4 +1,4 @@
-package br.janioofi.msemail.config.consumer;
+package br.janioofi.msemail.configs.consumer;
 
 import br.janioofi.msemail.domain.dtos.EmailDto;
 import br.janioofi.msemail.domain.entities.Email;
@@ -14,13 +14,14 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Slf4j
 public class EmailConsumer {
+
     private final EmailService service;
 
     @RabbitListener(queues = "${mq.queues.ms-email}")
     public void receberSolicitacaoEmail(@Payload EmailDto emailDto){
-        var email = new Email();
+        Email email = new Email();
         BeanUtils.copyProperties(emailDto, email);
         service.sendEmail(email);
-        log.info("Enviando e-mail para " + emailDto.getEmailTo());
+        log.info("Enviando e-mail para " + emailDto.emailTo());
     }
 }
