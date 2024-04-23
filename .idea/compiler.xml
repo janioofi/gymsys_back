@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="eurekaserver" />
         <module name="ms-cloudgateway" />
+        <module name="ms-email" />
         <module name="ms-gym" />
       </profile>
     </annotationProcessing>
@@ -21,6 +22,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="eurekaserver" options="-parameters" />
       <module name="ms-cloudgateway" options="-parameters" />
+      <module name="ms-email" options="-parameters" />
       <module name="ms-gym" options="-parameters" />
       <module name="ms-payment" options="-parameters" />
     </option>

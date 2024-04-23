@@ -22,7 +22,7 @@ public class TokenService {
         try{
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.create()
-                    .withIssuer("gymsys-api")
+                    .withIssuer("ms-gym")
                     .withSubject(user.getUsername())
                     .withExpiresAt(generateExpirationDateToken())
                     .sign(algorithm);
@@ -35,7 +35,7 @@ public class TokenService {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
-                    .withIssuer("gymsys-api")
+                    .withIssuer("ms-gym")
                     .build()
                     .verify(token)
                     .getSubject();
