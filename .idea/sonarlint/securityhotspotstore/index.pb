@@ -345,3 +345,17 @@ C
 ms-email/.gitignore,2\6\26bb95ee5f7daafa8f4d2c05d241c6a7b1a8db88
 A
 ms-email/mvnw.cmd,4\5\45098e6f96ab5608640e274b4a37f9e321d578fb
+u
+Ems-email/src/main/java/br/janioofi/msemail/domain/entities/Email.java,5\8\58bf65a27464a3f2ec5cacc9617c29796176110c
+x
+Hms-email/src/main/java/br/janioofi/msemail/domain/enums/StatusEmail.java,c\5\c5aa9a1e4bc9ec5accc58b0ccb455351220060b8
+t
+Dms-email/src/main/java/br/janioofi/msemail/domain/dtos/EmailDto.java,7\d\7d551add248887a6f9a50ec0a359158cc915d6e3
+ƒ
+Sms-email/src/main/java/br/janioofi/msemail/domain/repositories/EmailRepository.java,6\0\6002c77bbe9ce067f1303cecbe97c31d68d37cff
+|
+Lms-email/src/main/java/br/janioofi/msemail/domain/services/EmailService.java,d\2\d28ec96b999704502425f73fb1acf70653723d8c
+{
+Kms-email/src/main/java/br/janioofi/msemail/controllers/EmailController.java,9\2\9277c43b2d3109f64a36357c43166284760716eb
+t
+Dms-email/src/main/java/br/janioofi/msemail/config/infra/Swagger.java,b\8\b8e2472d52cc89366c06faeb87055c62d08df40c
