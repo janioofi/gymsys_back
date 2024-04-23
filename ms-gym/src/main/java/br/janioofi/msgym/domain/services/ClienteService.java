@@ -1,5 +1,7 @@
 package br.janioofi.msgym.domain.services;
 
+import br.janioofi.msemail.domain.dtos.EmailDto;
+import br.janioofi.msgym.config.producer.EmailProducer;
 import br.janioofi.msgym.domain.dtos.ClienteDTO;
 import br.janioofi.msgym.domain.entities.Cliente;
 import br.janioofi.msgym.domain.entities.Plano;
@@ -12,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,6 +26,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ClienteService {
 
+    private final EmailProducer producer;
     private final ClienteRepository repository;
     private final PlanoRepository planoRepository;
     private final ModelMapper mapper = new ModelMapper().registerModule(new org.modelmapper.record.RecordModule());
@@ -37,6 +41,7 @@ public class ClienteService {
         return repository.findById(id).orElseThrow(() -> new RecordNotFoundException("Nenhum cliente encontrado com o ID: " + id));
     }
 
+    @Transactional
     public Cliente create(@Valid ClienteDTO clienteDTO){
         validaCpfEEmail(clienteDTO);
         log.info("Criando novo cliente: " + clienteDTO);
@@ -51,6 +56,14 @@ public class ClienteService {
         cliente.setApelido(clienteDTO.getApelido());
         cliente.setSobrenome(clienteDTO.getSobrenome());
         repository.save(cliente);
+        EmailDto email = new EmailDto();
+        email.setEmailTo(cliente.getEmail());
+        email.setSubject("Cadastro na Social Gym");
+        email.setText("Seja-bem vindo a nossa academia, estamos muito contentes com chegada ao nosso time. Veja alguns detalhes do seu cadastro: "+
+                "Plano: " + cliente.getPlano().getDescricao() +
+                "Valor: R$ " + cliente.getPlano().getPreco() +
+                "Data cadastro: " + cliente.getData_cadastro());
+        producer.publishMessageEmail(email);
         return repository.save(cliente);
     }
 

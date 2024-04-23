@@ -6,6 +6,11 @@ spring:
     username: postgres
     password: 12345678
     driver-class-name: org.postgresql.Driver
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
   jpa:
     hibernate:
       ddl-auto: update
@@ -20,6 +25,11 @@ spring:
     password: ${PASSWORD}
 server:
   port: 0
+
+mq:
+  queues:
+    ms-email: ms-email
+
 
 eureka:
   client:

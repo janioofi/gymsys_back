@@ -1,6 +1,11 @@
 spring:
   application:
     name: ms-gym
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
   datasource:
     url: jdbc:postgresql://localhost:5432/gym
     username: postgres
@@ -11,6 +16,10 @@ spring:
       ddl-auto: update
 server:
   port: 0
+
+mq:
+  queues:
+    ms-email: ms-email
 
 api:
   security:

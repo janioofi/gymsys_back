@@ -359,3 +359,13 @@ Lms-email/src/main/java/br/janioofi/msemail/domain/services/EmailService.java,d
 Kms-email/src/main/java/br/janioofi/msemail/controllers/EmailController.java,9\2\9277c43b2d3109f64a36357c43166284760716eb
 t
 Dms-email/src/main/java/br/janioofi/msemail/config/infra/Swagger.java,b\8\b8e2472d52cc89366c06faeb87055c62d08df40c
+s
+Cms-email/src/main/java/br/janioofi/msemail/config/infra/mqueue.java,8\f\8fe8b05b18ae833e451efcfcf3ada56713698005
+{
+Kms-email/src/main/java/br/janioofi/msemail/config/queue/EmailSubscribe.java,6\5\658dffcddb1353442dd8e3b589f83a39176112c7
+z
+Jms-email/src/main/java/br/janioofi/msemail/config/queue/EmailConsumer.java,2\3\234bbf634f0ecbceb40073e89c2f6a912119908c
+}
+Mms-email/src/main/java/br/janioofi/msemail/config/consumer/EmailConsumer.java,b\c\bc65a79c538207628adf8f708acee2bd5b257309
+y
+Ims-gym/src/main/java/br/janioofi/msgym/config/producer/EmailProducer.java,3\3\33984fb7df4a5e11f00bc80f3ed2f07c792a242c
