@@ -57,4 +57,8 @@ public class PagamentoService {
             return repository.save(recordFound);
         }).orElseThrow(() -> new RecordNotFoundException("Nenhum pagamento encontrado com ID: " + id));
     }
+
+    public Pagamento findByUltimoPagamento(Long id_cliente){
+        return repository.findByUltimoPagamento(id_cliente);
+    }
 }
