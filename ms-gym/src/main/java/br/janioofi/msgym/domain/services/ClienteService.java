@@ -1,8 +1,8 @@
 package br.janioofi.msgym.domain.services;
 
+import br.janioofi.msemail.domain.dtos.EmailDto;
 import br.janioofi.msgym.configs.producer.EmailProducer;
 import br.janioofi.msgym.domain.dtos.ClienteDTO;
-import br.janioofi.msgym.domain.dtos.EmailDto;
 import br.janioofi.msgym.domain.entities.Cliente;
 import br.janioofi.msgym.domain.entities.Plano;
 import br.janioofi.msgym.domain.repositories.ClienteRepository;
@@ -43,15 +43,15 @@ public class ClienteService {
         validaCpfEEmail(clienteDTO);
         log.info("Criando novo cliente: " + clienteDTO);
         Cliente cliente = new Cliente();
-        Plano plano = planoRepository.findById(clienteDTO.getPlano()).orElseThrow(() ->  new RecordNotFoundException("Nenhum plano encontrado com o ID: " + clienteDTO.getPlano()));
-        cliente.setNome(clienteDTO.getNome());
-        cliente.setCpf(clienteDTO.getCpf());
-        cliente.setEmail(clienteDTO.getEmail());
+        Plano plano = planoRepository.findById(clienteDTO.plano()).orElseThrow(() ->  new RecordNotFoundException("Nenhum plano encontrado com o ID: " + clienteDTO.plano()));
+        cliente.setNome(clienteDTO.nome());
+        cliente.setCpf(clienteDTO.cpf());
+        cliente.setEmail(clienteDTO.email());
         cliente.setPlano(plano);
         cliente.setData_cadastro(LocalDate.now());
-        cliente.setData_nascimento(clienteDTO.getData_nascimento());
-        cliente.setApelido(clienteDTO.getApelido());
-        cliente.setSobrenome(clienteDTO.getSobrenome());
+        cliente.setData_nascimento(clienteDTO.data_nascimento());
+        cliente.setApelido(clienteDTO.apelido());
+        cliente.setSobrenome(clienteDTO.sobrenome());
         repository.save(cliente);
         sendEmailCliente(cliente);
         return repository.save(cliente);
@@ -65,29 +65,29 @@ public class ClienteService {
     public Cliente update(Long id,@Valid ClienteDTO clienteDTO){
         validaCpfEEmail(clienteDTO);
         log.info("Atualizando cliente de ID: " + id + ", com informações: " + clienteDTO);
-        Plano plano = planoRepository.findById(clienteDTO.getPlano()).orElseThrow(() ->  new RecordNotFoundException("Nenhum plano encontrado com o ID: " + clienteDTO.getPlano()));
+        Plano plano = planoRepository.findById(clienteDTO.plano()).orElseThrow(() ->  new RecordNotFoundException("Nenhum plano encontrado com o ID: " + clienteDTO.plano()));
         return repository.findById(id).map(data -> {
-                    data.setNome(clienteDTO.getNome());
-                    data.setCpf(clienteDTO.getCpf());
-                    data.setApelido(clienteDTO.getApelido());
-                    data.setSobrenome(clienteDTO.getSobrenome());
-                    data.setEmail(clienteDTO.getEmail());
+                    data.setNome(clienteDTO.nome());
+                    data.setCpf(clienteDTO.cpf());
+                    data.setApelido(clienteDTO.apelido());
+                    data.setSobrenome(clienteDTO.sobrenome());
+                    data.setEmail(clienteDTO.email());
                     data.setData_atualizacao(LocalDateTime.now());
-                    data.setData_nascimento(clienteDTO.getData_nascimento());
+                    data.setData_nascimento(clienteDTO.data_nascimento());
                     data.setPlano(plano);
                     return repository.save(data);
                 }).orElseThrow(() -> new RecordNotFoundException("Nenhum cliente encontrado com o ID: " + id));
     }
 
     public void validaCpfEEmail(ClienteDTO clienteDTO){
-        Optional<Cliente> obj = repository.findByCpf(clienteDTO.getCpf());
+        Optional<Cliente> obj = repository.findByCpf(clienteDTO.cpf());
 
-        if (obj.isPresent() && !obj.get().getId_cliente().equals(clienteDTO.getId_cliente())) {
+        if (obj.isPresent() && !obj.get().getId_cliente().equals(clienteDTO.id_cliente())) {
             throw new DataIntegrityViolationException("CPF já está sendo utilizado");
         }
 
-        obj = repository.findByEmail(clienteDTO.getEmail());
-        if (obj.isPresent() && !obj.get().getId_cliente().equals(clienteDTO.getId_cliente())) {
+        obj = repository.findByEmail(clienteDTO.email());
+        if (obj.isPresent() && !obj.get().getId_cliente().equals(clienteDTO.id_cliente())) {
             throw new DataIntegrityViolationException("E-mail já está sendo utilizado");
         }
     }

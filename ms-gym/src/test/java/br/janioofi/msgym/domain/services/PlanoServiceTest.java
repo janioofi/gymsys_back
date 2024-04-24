@@ -31,7 +31,7 @@ class PlanoServiceTest {
     public static final LocalDate VIGENCIA = LocalDate.now();
     public static final BigDecimal PRECO = new BigDecimal("90.2");
 
-    private PlanoDTO planoDTO = new PlanoDTO();
+    private PlanoDTO planoDTO;
     private Plano plano = new Plano();
     private Optional<Plano> optionalPlano;
 

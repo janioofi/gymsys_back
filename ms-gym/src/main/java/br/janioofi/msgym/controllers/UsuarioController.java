@@ -1,6 +1,7 @@
 package br.janioofi.msgym.controllers;
 
 import br.janioofi.msgym.domain.dtos.UsuarioDTO;
+import br.janioofi.msgym.domain.entities.Usuario;
 import br.janioofi.msgym.domain.services.UsuarioService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +20,12 @@ public class UsuarioController {
     private final UsuarioService service;
 
     @GetMapping
-    public ResponseEntity<List<UsuarioDTO>> findAll(){
+    public ResponseEntity<List<Usuario>> findAll(){
         return ResponseEntity.ok().body(service.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> findById(@PathVariable Long id){
+    public ResponseEntity<Usuario> findById(@PathVariable Long id){
         return ResponseEntity.ok().body(service.findById(id));
     }
 
@@ -36,7 +37,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioDTO> update(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDTO){
+    public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDTO){
         return ResponseEntity.ok().body(service.update(id, usuarioDTO));
     }
 }

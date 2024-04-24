@@ -7,14 +7,8 @@ CREATE TABLE profissional
     email           VARCHAR(255)                            NOT NULL,
     data_nascimento date,
     data_admissao   date,
+    id_usuario      BIGINT,
     CONSTRAINT pk_profissional PRIMARY KEY (id_profissional)
-);
-
-CREATE TABLE profissional_usuarios
-(
-    profissional_id_profissional BIGINT NOT NULL,
-    usuarios_id_usuario          BIGINT NOT NULL,
-    CONSTRAINT pk_profissional_usuarios PRIMARY KEY (profissional_id_profissional, usuarios_id_usuario)
 );
 
 ALTER TABLE profissional
@@ -23,11 +17,8 @@ ALTER TABLE profissional
 ALTER TABLE profissional
     ADD CONSTRAINT uc_profissional_email UNIQUE (email);
 
-ALTER TABLE profissional_usuarios
-    ADD CONSTRAINT uc_profissional_usuarios_usuarios_id_usuario UNIQUE (usuarios_id_usuario);
+ALTER TABLE profissional
+    ADD CONSTRAINT uc_profissional_id_usuario UNIQUE (id_usuario);
 
-ALTER TABLE profissional_usuarios
-    ADD CONSTRAINT fk_prousu_on_profissional FOREIGN KEY (profissional_id_profissional) REFERENCES profissional (id_profissional);
-
-ALTER TABLE profissional_usuarios
-    ADD CONSTRAINT fk_prousu_on_usuario FOREIGN KEY (usuarios_id_usuario) REFERENCES usuario (id_usuario);
+ALTER TABLE profissional
+    ADD CONSTRAINT FK_PROFISSIONAL_ON_ID_USUARIO FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario);

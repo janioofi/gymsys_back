@@ -1,6 +1,7 @@
 package br.janioofi.msgym.controllers;
 
 import br.janioofi.msgym.domain.dtos.ProfissionalDTO;
+import br.janioofi.msgym.domain.entities.Profissional;
 import br.janioofi.msgym.domain.entities.Usuario;
 import br.janioofi.msgym.domain.services.ProfissionalService;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,9 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -34,9 +33,10 @@ class ProfissionalControllerTest {
     public static final String EMAIL = "janio@gmail.com";
     public static final LocalDate DATA_NASCIMENTO = LocalDate.of(2001, 9, 7);
     public static final LocalDate DATA_ADMISSAO = LocalDate.of(2024, 1, 1);
-    public static final Set<Usuario> USUARIO = new HashSet<>();
+    public static final Usuario USUARIO = new Usuario();
 
-    private ProfissionalDTO profissionalDTO = new ProfissionalDTO();
+    private ProfissionalDTO profissionalDTO;
+    private Profissional profissional;
 
     @InjectMocks
     private ProfissionalController controller;
@@ -54,14 +54,14 @@ class ProfissionalControllerTest {
 
     @Test
     void whenFindAllThenReturnListOfProfissionalDTO() {
-        when(service.findAll()).thenReturn(List.of(profissionalDTO));
+        when(service.findAll()).thenReturn(List.of(profissional));
 
-        ResponseEntity<List<ProfissionalDTO>> response = controller.findAll();
+        ResponseEntity<List<Profissional>> response = controller.findAll();
         assertNotNull(response);
         assertNotNull(response.getBody());
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(ResponseEntity.class, response.getClass());
-        assertEquals(ProfissionalDTO.class, response.getBody().get(INDEX).getClass());
+        assertEquals(Profissional.class, response.getBody().get(INDEX).getClass());
         assertEquals(ID, response.getBody().get(INDEX).getId_profissional());
         assertEquals(NOME, response.getBody().get(INDEX).getNome());
         assertEquals(SOBRENOME, response.getBody().get(INDEX).getSobrenome());
@@ -73,16 +73,16 @@ class ProfissionalControllerTest {
 
     @Test
     void whenFindByIdThenReturnSuccess() {
-        when(service.findById(anyLong())).thenReturn(profissionalDTO);
+        when(service.findById(anyLong())).thenReturn(profissional);
 
-        ResponseEntity<ProfissionalDTO> response = controller.findById(ID);
+        ResponseEntity<Profissional> response = controller.findById(ID);
 
         assertNotNull(response);
         assertNotNull(response.getBody());
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(ResponseEntity.class, response.getClass());
-        assertEquals(ProfissionalDTO.class, response.getBody().getClass());
+        assertEquals(Profissional.class, response.getBody().getClass());
         assertEquals(ID, response.getBody().getId_profissional());
         assertEquals(NOME, response.getBody().getNome());
         assertEquals(SOBRENOME, response.getBody().getSobrenome());
@@ -94,9 +94,9 @@ class ProfissionalControllerTest {
 
     @Test
     void whenCreateThenReturnCreated() {
-        when(service.create(any())).thenReturn(profissionalDTO);
+        when(service.create(any())).thenReturn(profissional);
 
-        ResponseEntity<ProfissionalDTO> response = controller.create(profissionalDTO);
+        ResponseEntity<Profissional> response = controller.create(profissionalDTO);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(ResponseEntity.class, response.getClass());
 
@@ -104,18 +104,14 @@ class ProfissionalControllerTest {
 
     @Test
     void whenUpdateThenReturnSuccess() {
-        when(service.update(anyLong(), any())).thenReturn(profissionalDTO);
+        when(service.update(anyLong(), any())).thenReturn(profissional);
 
-        ResponseEntity<ProfissionalDTO> response = controller.update(ID, profissionalDTO);
+        ResponseEntity<Profissional> response = controller.update(ID, profissionalDTO);
         assertNotNull(response);
         assertNotNull(response.getBody());
-        assertEquals(ResponseEntity.class, response.getClass());
-        assertEquals(ProfissionalDTO.class, response.getBody().getClass());
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(ResponseEntity.class, response.getClass());
-        assertEquals(ProfissionalDTO.class, response.getBody().getClass());
+        assertEquals(Profissional.class, response.getBody().getClass());
         assertEquals(ID, response.getBody().getId_profissional());
         assertEquals(NOME, response.getBody().getNome());
         assertEquals(SOBRENOME, response.getBody().getSobrenome());
@@ -137,6 +133,7 @@ class ProfissionalControllerTest {
     }
 
     private void startProfissional() {
-        profissionalDTO = new ProfissionalDTO(ID, NOME, SOBRENOME, CPF, EMAIL, DATA_NASCIMENTO, DATA_ADMISSAO, USUARIO);
+        profissionalDTO = new ProfissionalDTO(ID, NOME, SOBRENOME, CPF, EMAIL, DATA_NASCIMENTO, DATA_ADMISSAO, 1L);
+        profissional = new Profissional(ID, NOME, SOBRENOME, CPF, EMAIL, DATA_NASCIMENTO, DATA_ADMISSAO, USUARIO);
     }
 }

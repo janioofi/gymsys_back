@@ -6,7 +6,6 @@ import br.janioofi.msgym.domain.repositories.PlanoRepository;
 import br.janioofi.msgym.exceptions.RecordNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -19,22 +18,25 @@ import java.util.Optional;
 public class PlanoService {
 
     private final PlanoRepository repository;
-    private final ModelMapper modelMapper = new ModelMapper().registerModule(new org.modelmapper.record.RecordModule());
 
-    public List<PlanoDTO> findAll(){
+    public List<Plano> findAll(){
         log.info("Listando planos.");
-        return repository.findAll().stream().map(object -> modelMapper.map(object, PlanoDTO.class)).toList();
+        return repository.findAll();
     }
 
-    public PlanoDTO findById(Long id){
+    public Plano findById(Long id){
         log.info("Buscando por planos com ID: " + id);
-        return modelMapper.map(repository.findById(id).orElseThrow(() -> new RecordNotFoundException("Nenhum plano encontrado com o ID: " + id)), PlanoDTO.class);
+        return repository.findById(id).orElseThrow(() -> new RecordNotFoundException("Nenhum plano encontrado com o ID: " + id));
     }
 
-    public PlanoDTO create(PlanoDTO plano){
-        validaDescricao(plano);
-        log.info("Criando novo plano: " + plano);
-        return modelMapper.map(repository.save(modelMapper.map(plano, Plano.class)), PlanoDTO.class);
+    public Plano create(PlanoDTO planoDTO){
+        validaDescricao(planoDTO);
+        log.info("Criando novo plano: " + planoDTO);
+        Plano plano = new Plano();
+        plano.setPreco(planoDTO.preco());
+        plano.setVigencia(planoDTO.vigencia());
+        plano.setDescricao(planoDTO.descricao());
+        return repository.save(plano);
     }
 
     public void delete(Long id){
@@ -42,22 +44,21 @@ public class PlanoService {
         repository.deleteById(id);
     }
 
-    public PlanoDTO update(Long id, PlanoDTO plano){
+    public Plano update(Long id, PlanoDTO plano){
         validaDescricao(plano);
         log.info("Atualizando plano com  ID:  " + id + ",  com as novas informações: " + plano);
-        return modelMapper.map(
-                repository.findById(id).map(recordFound -> {
-                recordFound.setDescricao(plano.getDescricao());
-                recordFound.setPreco(plano.getPreco());
-                recordFound.setVigencia(plano.getVigencia());
-                return modelMapper.map(repository.save(recordFound), PlanoDTO.class);
-        }), PlanoDTO.class);
+        return repository.findById(id).map(recordFound -> {
+                recordFound.setDescricao(plano.descricao());
+                recordFound.setPreco(plano.preco());
+                recordFound.setVigencia(plano.vigencia());
+                return repository.save(recordFound);
+        }).orElseThrow(() -> new RecordNotFoundException("Nenhum plano encontrado com o ID: " + id));
     }
 
     public void validaDescricao(PlanoDTO plano){
-        Optional<Plano> obj = repository.findByDescricao(plano.getDescricao());
+        Optional<Plano> obj = repository.findByDescricao(plano.descricao());
 
-        if (obj.isPresent() && !obj.get().getId_plano().equals(plano.getId_plano())) {
+        if (obj.isPresent() && !obj.get().getId_plano().equals(plano.id_plano())) {
             throw new DataIntegrityViolationException("Já existe um plano cadastrado com está descrição");
         }
     }

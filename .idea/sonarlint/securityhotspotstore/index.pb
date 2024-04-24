@@ -251,8 +251,6 @@ Bms-gym/src/main/java/br/janioofi/msgym/domain/dtos/UsuarioDTO.java,8\a\8a3da30
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-p
-@ms-gym/src/main/java/br/janioofi/msgym/config/infra/Swagger.java,7\e\7e9c514845d3a40286e59d91b727096c7fd4bbb7
 q
 Ams-gym/src/main/java/br/janioofi/msgym/domain/entities/Plano.java,6\1\6191fda68b06835582ac1a6079f87302ac2c9d0c
 p
@@ -311,10 +309,6 @@ Oms-gym/src/test/java/br/janioofi/msgym/controllers/PagamentoControllerTest.java
 Pms-gym/src/test/java/br/janioofi/msgym/domain/services/PagamentoServiceTest.java,9\6\96805b15eff6e8c0cd75dbe419b2248ac367ac8c
 x
 Hms-gym/src/main/java/br/janioofi/msgym/domain/services/TokenService.java,e\2\e24b9eb739d2ed2037ed067b9d05011f5e7e8520
-z
-Jms-gym/src/main/java/br/janioofi/msgym/config/security/SecurityFilter.java,c\d\cd018c7dae0fd02f3754064372f384e16544dd33
-Å
-Qms-gym/src/main/java/br/janioofi/msgym/config/security/SecurityConfiguration.java,5\1\5110b3e1993ca64b8ec96f50406a55cdc0e05e7f
 u
 Ems-gym/src/main/java/br/janioofi/msgym/domain/dtos/LoginResponse.java,e\2\e275552542fb52a0e3834a99b329601533ca37b1
 Ä
@@ -357,14 +351,6 @@ Sms-email/src/main/java/br/janioofi/msemail/domain/repositories/EmailRepository.
 Lms-email/src/main/java/br/janioofi/msemail/domain/services/EmailService.java,d\2\d28ec96b999704502425f73fb1acf70653723d8c
 {
 Kms-email/src/main/java/br/janioofi/msemail/controllers/EmailController.java,9\2\9277c43b2d3109f64a36357c43166284760716eb
-t
-Dms-email/src/main/java/br/janioofi/msemail/config/infra/Swagger.java,b\8\b8e2472d52cc89366c06faeb87055c62d08df40c
-}
-Mms-email/src/main/java/br/janioofi/msemail/config/consumer/EmailConsumer.java,b\c\bc65a79c538207628adf8f708acee2bd5b257309
-y
-Ims-gym/src/main/java/br/janioofi/msgym/config/producer/EmailProducer.java,3\3\33984fb7df4a5e11f00bc80f3ed2f07c792a242c
-x
-Hms-email/src/main/java/br/janioofi/msemail/config/mq/RabbitMQConfig.java,d\8\d8fa5a8c6122727a851bb16b867116451036e145
 y
 Ims-email/src/main/java/br/janioofi/msemail/configs/mq/RabbitMQConfig.java,a\7\a73d11367c18c0cec933a3f7085d847a0298252f
 ~

@@ -15,7 +15,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -41,12 +42,17 @@ public class Usuario implements Serializable, UserDetails {
     private String senha;
 
     @NotNull(message = "Perfil é obrigatório")
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    private Perfil perfil;
+    private Set<Perfil> perfis = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(perfil.getDescricao()));
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        for (Perfil perfil: perfis) {
+            authorities.add(new SimpleGrantedAuthority(perfil.getDescricao()));
+        }
+        return authorities;
     }
 
     @Override

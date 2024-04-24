@@ -12,8 +12,6 @@ import org.hibernate.validator.constraints.br.CPF;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -57,7 +55,8 @@ public class Profissional implements Serializable {
     @PastOrPresent
     private LocalDate data_admissao;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Usuario> usuarios = new HashSet<>();
+    @OneToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
 }

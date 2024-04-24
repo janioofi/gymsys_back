@@ -1,6 +1,7 @@
 package br.janioofi.msgym.controllers;
 
 import br.janioofi.msgym.domain.dtos.PlanoDTO;
+import br.janioofi.msgym.domain.entities.Plano;
 import br.janioofi.msgym.domain.services.PlanoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -18,17 +19,17 @@ public class PlanoController {
     private final PlanoService service;
 
     @GetMapping
-    public ResponseEntity<List<PlanoDTO>> findAll(){
+    public ResponseEntity<List<Plano>> findAll(){
         return ResponseEntity.ok().body(service.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PlanoDTO> findById(@PathVariable Long id){
+    public ResponseEntity<Plano> findById(@PathVariable Long id){
         return ResponseEntity.ok().body(service.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<PlanoDTO> create(@RequestBody PlanoDTO plano){
+    public ResponseEntity<Plano> create(@RequestBody PlanoDTO plano){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(plano));
     }
 
@@ -39,7 +40,7 @@ public class PlanoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PlanoDTO> update(@PathVariable Long id,@RequestBody PlanoDTO plano){
+    public ResponseEntity<Plano> update(@PathVariable Long id,@RequestBody PlanoDTO plano){
         return ResponseEntity.ok().body(service.update(id, plano));
     }
 }

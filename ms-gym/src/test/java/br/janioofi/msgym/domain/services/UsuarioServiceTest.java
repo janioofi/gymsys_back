@@ -13,8 +13,7 @@ import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -29,9 +28,9 @@ class UsuarioServiceTest {
     public static final Long ID = 1L;
     private static final String USUARIO   = "admin";
     public static final String SENHA = "admin";
-    public static final Perfil PERFIL = Perfil.ADMIN;
+    public static final Set<Perfil> PERFIL = new HashSet<>(Collections.singleton(Perfil.ADMIN));
 
-    private UsuarioDTO usuarioDTO = new UsuarioDTO();
+    private UsuarioDTO usuarioDTO;
     private Usuario usuario = new Usuario();
     private Optional<Usuario> optionalUser;
 
@@ -57,7 +56,7 @@ class UsuarioServiceTest {
         assertEquals(ID, response.getId_usuario());
         assertEquals(USUARIO, response.getUsuario());
         assertEquals(SENHA, response.getSenha());
-        assertEquals(PERFIL, response.getPerfil());
+        assertEquals(PERFIL, response.getPerfis());
     }
 
     @Test
@@ -82,7 +81,7 @@ class UsuarioServiceTest {
         assertEquals(ID, response.get(INDEX).getId_usuario());
         assertEquals(USUARIO, response.get(INDEX).getUsuario());
         assertEquals(SENHA, response.get(INDEX).getSenha());
-        assertEquals(PERFIL, response.get(INDEX).getPerfil());
+        assertEquals(PERFIL, response.get(INDEX).getPerfis());
 
     }
 

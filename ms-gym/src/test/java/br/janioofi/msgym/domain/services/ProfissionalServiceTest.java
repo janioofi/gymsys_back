@@ -1,21 +1,26 @@
 package br.janioofi.msgym.domain.services;
 
+import br.janioofi.msgym.configs.producer.EmailProducer;
 import br.janioofi.msgym.domain.dtos.ProfissionalDTO;
 import br.janioofi.msgym.domain.entities.Profissional;
 import br.janioofi.msgym.domain.entities.Usuario;
+import br.janioofi.msgym.domain.enums.Perfil;
 import br.janioofi.msgym.domain.repositories.ProfissionalRepository;
+import br.janioofi.msgym.domain.repositories.UsuarioRepository;
 import br.janioofi.msgym.exceptions.RecordNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -32,10 +37,11 @@ class ProfissionalServiceTest {
     public static final String EMAIL = "janio@gmail.com";
     public static final LocalDate DATA_NASCIMENTO = LocalDate.of(2001, 9, 7);
     public static final LocalDate DATA_ADMISSAO = LocalDate.of(2024, 1, 1);
-    public static final Set<Usuario> USUARIO = new HashSet<>();
+    public static final Usuario USUARIO = new Usuario(1L, "Teste", "teste", new HashSet<>(Collections.singleton(Perfil.ADMIN)));
 
-    private ProfissionalDTO profissionalDTO = new ProfissionalDTO();
+    private ProfissionalDTO profissionalDTO;
     private Profissional profissional = new Profissional();
+    private Optional<Usuario> optionalUsuario;
     private Optional<Profissional> optionalProfissional;
 
     @InjectMocks
@@ -43,19 +49,24 @@ class ProfissionalServiceTest {
 
     @Mock
     private ProfissionalRepository repository;
-    private final ModelMapper mapper = new ModelMapper().registerModule(new org.modelmapper.record.RecordModule());
+
+    @Mock
+    private EmailProducer producer;
+
+    @Mock
+    private UsuarioRepository usuarioRepository;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         startProfissional();
-        service = new ProfissionalService(repository);
+        service = new ProfissionalService(producer,repository, usuarioRepository);
     }
 
     @Test
     void whenFindByIdThenReturnAProfissionalInstance() {
         when(repository.findById(anyLong())).thenReturn(optionalProfissional);
-        Profissional response = mapper.map(service.findById(ID), Profissional.class);
+        Profissional response = service.findById(ID);
         assertNotNull(response);
         assertEquals(Profissional.class, response.getClass());
         assertEquals(ID, response.getId_profissional());
@@ -82,7 +93,7 @@ class ProfissionalServiceTest {
     @Test
     void whenFindAllThenReturnAListOfProfissionais() {
         when(repository.findAll()).thenReturn(List.of(profissional));
-        List<Profissional> response = service.findAll().stream().map(object  -> mapper.map(object, Profissional.class)).toList();
+        List<Profissional> response = service.findAll();
         assertNotNull(response);
         assertEquals(1, response.size());
         assertEquals(Profissional.class, response.get(INDEX).getClass());
@@ -98,8 +109,9 @@ class ProfissionalServiceTest {
 
     @Test
     void whenCreateThenReturnSuccess() {
+        when(usuarioRepository.findById(anyLong())).thenReturn(optionalUsuario);
         when(repository.save(any())).thenReturn(profissional);
-        Profissional response = mapper.map(service.create(profissionalDTO), Profissional.class);
+        Profissional response = service.create(profissionalDTO);
 
         assertNotNull(response);
         assertEquals(Profissional.class, response.getClass());
@@ -155,7 +167,8 @@ class ProfissionalServiceTest {
 
     private void startProfissional(){
         profissional = new Profissional(ID, NOME, SOBRENOME, CPF, EMAIL, DATA_NASCIMENTO, DATA_ADMISSAO, USUARIO);
-        profissionalDTO = new ProfissionalDTO(ID, NOME, SOBRENOME, CPF, EMAIL, DATA_NASCIMENTO, DATA_ADMISSAO, USUARIO);
+        profissionalDTO = new ProfissionalDTO(ID, NOME, SOBRENOME, CPF, EMAIL, DATA_NASCIMENTO, DATA_ADMISSAO, 1L);
         optionalProfissional = Optional.of(new Profissional(ID, NOME, SOBRENOME, CPF, EMAIL, DATA_NASCIMENTO, DATA_ADMISSAO, USUARIO));
+        optionalUsuario = Optional.of(new Usuario(1L, "Teste", "teste", new HashSet<>(Collections.singleton(Perfil.ADMIN))));
     }
 }

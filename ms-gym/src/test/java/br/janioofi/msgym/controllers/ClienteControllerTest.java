@@ -40,7 +40,7 @@ class ClienteControllerTest {
     public static final Plano PLANO = new Plano(1L, "Teste",  LocalDate.now(), BigDecimal.valueOf(20));
 
     private Cliente cliente = new Cliente();
-    private ClienteDTO clienteDTO = new ClienteDTO();
+    private ClienteDTO clienteDTO;
 
     @InjectMocks
     private ClienteController controller;

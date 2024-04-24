@@ -36,11 +36,11 @@ public class PagamentoService {
 
     public Pagamento create(PagamentoDTO pagamentoDTO){
         Pagamento pagamento = new Pagamento();
-        Cliente cliente = clienteRepository.findById(pagamentoDTO.getCliente()).orElseThrow(() ->  new RecordNotFoundException("Nenhum cliente encontrado com o ID: " + pagamentoDTO.getCliente()));
-        Plano plano = planoRepository.findById(pagamentoDTO.getPlano()).orElseThrow(() ->  new RecordNotFoundException("Nenhum plano encontrado com o ID: " + pagamentoDTO.getPlano()));
+        Cliente cliente = clienteRepository.findById(pagamentoDTO.cliente()).orElseThrow(() ->  new RecordNotFoundException("Nenhum cliente encontrado com o ID: " + pagamentoDTO.cliente()));
+        Plano plano = planoRepository.findById(pagamentoDTO.plano()).orElseThrow(() ->  new RecordNotFoundException("Nenhum plano encontrado com o ID: " + pagamentoDTO.plano()));
         pagamento.setData_pagamento(LocalDateTime.now());
-        pagamento.setForma_pagamento(pagamentoDTO.getForma_pagamento());
-        pagamento.setValor(pagamentoDTO.getValor());
+        pagamento.setForma_pagamento(pagamentoDTO.forma_pagamento());
+        pagamento.setValor(pagamentoDTO.valor());
         pagamento.setPlano(plano);
         pagamento.setCliente(cliente);
         log.info("Novo pagamento gerado: " + pagamento);
@@ -48,12 +48,12 @@ public class PagamentoService {
     }
 
     public Pagamento update(Long id ,PagamentoDTO pagamentoDTO){
-        Cliente cliente = clienteRepository.findById(pagamentoDTO.getCliente()).orElseThrow(() ->  new RecordNotFoundException("Nenhum cliente encontrado com o ID: " + pagamentoDTO.getCliente()));
-        Plano plano = planoRepository.findById(pagamentoDTO.getPlano()).orElseThrow(() ->  new RecordNotFoundException("Nenhum plano encontrado com o ID: " + pagamentoDTO.getPlano()));
+        Cliente cliente = clienteRepository.findById(pagamentoDTO.cliente()).orElseThrow(() ->  new RecordNotFoundException("Nenhum cliente encontrado com o ID: " + pagamentoDTO.cliente()));
+        Plano plano = planoRepository.findById(pagamentoDTO.plano()).orElseThrow(() ->  new RecordNotFoundException("Nenhum plano encontrado com o ID: " + pagamentoDTO.plano()));
         return repository.findById(id).map(recordFound -> {
             recordFound.setCliente(cliente);
             recordFound.setPlano(plano);
-            recordFound.setValor(pagamentoDTO.getValor());
+            recordFound.setValor(pagamentoDTO.valor());
             return repository.save(recordFound);
         }).orElseThrow(() -> new RecordNotFoundException("Nenhum pagamento encontrado com ID: " + id));
     }
