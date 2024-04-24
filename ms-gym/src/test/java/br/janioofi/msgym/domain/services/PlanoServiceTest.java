@@ -30,6 +30,7 @@ class PlanoServiceTest {
     private static final String DESCRICAO   = "MENSAL";
     public static final LocalDate VIGENCIA = LocalDate.now();
     public static final BigDecimal PRECO = new BigDecimal("90.2");
+    private static final Integer QTD = 1;
 
     private PlanoDTO planoDTO;
     private Plano plano = new Plano();
@@ -59,6 +60,7 @@ class PlanoServiceTest {
         assertEquals(DESCRICAO, response.getDescricao());
         assertEquals(VIGENCIA, response.getVigencia());
         assertEquals(PRECO, response.getPreco());
+        assertEquals(QTD, response.getQuantidadeMeses());
     }
 
     @Test
@@ -84,7 +86,7 @@ class PlanoServiceTest {
         assertEquals(DESCRICAO, response.get(INDEX).getDescricao());
         assertEquals(VIGENCIA, response.get(INDEX).getVigencia());
         assertEquals(PRECO, response.get(INDEX).getPreco());
-
+        assertEquals(QTD, response.get(INDEX).getQuantidadeMeses());
     }
 
     @Test
@@ -98,6 +100,7 @@ class PlanoServiceTest {
         assertEquals(DESCRICAO, response.getDescricao());
         assertEquals(VIGENCIA, response.getVigencia());
         assertEquals(PRECO, response.getPreco());
+        assertEquals(QTD, response.getQuantidadeMeses());
     }
 
     @Test
@@ -142,8 +145,8 @@ class PlanoServiceTest {
     }
 
     private void startPlano(){
-        plano = new Plano(ID, DESCRICAO, VIGENCIA, PRECO);
-        planoDTO = new PlanoDTO(ID, DESCRICAO, VIGENCIA, PRECO);
-        optionalPlano = Optional.of(new Plano(ID, DESCRICAO, VIGENCIA, PRECO));
+        plano = new Plano(ID, DESCRICAO, VIGENCIA, PRECO, QTD);
+        planoDTO = new PlanoDTO(ID, DESCRICAO, VIGENCIA, PRECO, QTD);
+        optionalPlano = Optional.of(new Plano(ID, DESCRICAO, VIGENCIA, PRECO, QTD));
     }
 }

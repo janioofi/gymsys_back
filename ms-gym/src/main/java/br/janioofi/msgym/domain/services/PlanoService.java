@@ -36,6 +36,7 @@ public class PlanoService {
         plano.setPreco(planoDTO.preco());
         plano.setVigencia(planoDTO.vigencia());
         plano.setDescricao(planoDTO.descricao());
+        plano.setQuantidadeMeses(planoDTO.quantidadeMeses());
         return repository.save(plano);
     }
 
@@ -51,6 +52,7 @@ public class PlanoService {
                 recordFound.setDescricao(plano.descricao());
                 recordFound.setPreco(plano.preco());
                 recordFound.setVigencia(plano.vigencia());
+                recordFound.setQuantidadeMeses(plano.quantidadeMeses());
                 return repository.save(recordFound);
         }).orElseThrow(() -> new RecordNotFoundException("Nenhum plano encontrado com o ID: " + id));
     }

@@ -37,7 +37,7 @@ class ClienteControllerTest {
     public static final LocalDate DATA_NASCIMENTO = LocalDate.of(2001, 9, 7);
     public static final LocalDate DATA_CADASTRO = LocalDate.now();
     public static final LocalDateTime DATA_ATUALIZACAO = LocalDateTime.now();
-    public static final Plano PLANO = new Plano(1L, "Teste",  LocalDate.now(), BigDecimal.valueOf(20));
+    public static final Plano PLANO = new Plano(1L, "Teste",  LocalDate.now(), BigDecimal.valueOf(20), 1);
 
     private Cliente cliente = new Cliente();
     private ClienteDTO clienteDTO;

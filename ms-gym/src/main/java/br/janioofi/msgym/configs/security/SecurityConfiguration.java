@@ -20,6 +20,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfiguration {
     private final SecurityFilter securityFilter;
+    private static final String PLANOS = "/api/v1/planos";
+    private static final String ADMIN = "ADMIN";
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -29,7 +32,10 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/v1/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/register").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/**").hasRole(ADMIN)
+                        .requestMatchers(HttpMethod.POST, PLANOS).hasRole(ADMIN)
+                        .requestMatchers(HttpMethod.PUT, PLANOS + "/**").hasRole(ADMIN)
+                        .requestMatchers(HttpMethod.DELETE, PLANOS).hasRole(ADMIN)
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
                         .anyRequest().authenticated()
                 )

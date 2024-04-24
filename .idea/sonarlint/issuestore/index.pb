@@ -355,8 +355,6 @@ y
 Ims-email/src/main/java/br/janioofi/msemail/configs/mq/RabbitMQConfig.java,a\7\a73d11367c18c0cec933a3f7085d847a0298252f
 ~
 Nms-email/src/main/java/br/janioofi/msemail/configs/consumer/EmailConsumer.java,e\3\e38e9375d2a0fd918a96f65e4aa2bace732a7de4
-p
-@ms-gym/src/main/java/br/janioofi/msgym/domain/dtos/EmailDto.java,9\6\96df8281756d7c49e4e875dcd6bbfeb91504f12b
 z
 Jms-gym/src/main/java/br/janioofi/msgym/configs/producer/EmailProducer.java,5\d\5dc0c042fa107f2f2ea726597728bfe9f549db22
 u

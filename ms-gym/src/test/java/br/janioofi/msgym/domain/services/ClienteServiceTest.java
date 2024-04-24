@@ -40,7 +40,7 @@ class ClienteServiceTest {
     public static final LocalDate DATA_NASCIMENTO = LocalDate.of(2001, 9, 7);
     public static final LocalDate DATA_CADASTRO = LocalDate.now();
     public static final LocalDateTime DATA_ATUALIZACAO = LocalDateTime.now();
-    public static final Plano PLANO = new Plano(1L, "Teste",  LocalDate.now(), BigDecimal.valueOf(20));
+    public static final Plano PLANO = new Plano(1L, "Teste",  LocalDate.now(), BigDecimal.valueOf(20), 1);
 
     private Cliente cliente = new Cliente();
     private ClienteDTO clienteDTO;
@@ -180,6 +180,6 @@ class ClienteServiceTest {
         cliente = new Cliente(ID, NOME, SOBRENOME, APELIDO, CPF, EMAIL, DATA_NASCIMENTO, PLANO, DATA_CADASTRO, DATA_ATUALIZACAO);
         optionalCliente = Optional.of(new Cliente(ID, NOME, SOBRENOME, APELIDO, CPF, EMAIL, DATA_NASCIMENTO, PLANO, DATA_CADASTRO, DATA_ATUALIZACAO));
         clienteDTO = new ClienteDTO(ID, NOME, SOBRENOME, APELIDO, CPF, EMAIL, DATA_NASCIMENTO, 1L);
-        plano = Optional.of(new Plano(1L, "Teste",  LocalDate.now(), BigDecimal.valueOf(20)));
+        plano = Optional.of(new Plano(1L, "Teste",  LocalDate.now(), BigDecimal.valueOf(20), 1));
     }
 }

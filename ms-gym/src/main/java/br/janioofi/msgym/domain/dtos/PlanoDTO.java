@@ -10,5 +10,6 @@ public record PlanoDTO (
     Long id_plano,
     String descricao,
     @JsonFormat(pattern = "dd/MM/yyyy") LocalDate vigencia,
-    BigDecimal preco
+    BigDecimal preco,
+    Integer quantidadeMeses
 ){}

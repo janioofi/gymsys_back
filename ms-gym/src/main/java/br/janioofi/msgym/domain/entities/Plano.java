@@ -39,4 +39,8 @@ public class Plano implements Serializable {
 
     @NotNull(message = "Preço é obrigatória")
     private BigDecimal preco;
+
+    @NotNull(message = "Quantidade de Meses é obrigatória")
+    @Column(name = "quantidade_meses")
+    private Integer quantidadeMeses;// Quantidade de meses que o pagamento vale.
 }
