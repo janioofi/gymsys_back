@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CodeInsightWorkspaceSettings">
     <option name="optimizeImportsOnTheFly" value="true" />
@@ -12,6 +13,7 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/ms-payment/pom.xml" />
         <option value="$PROJECT_DIR$/ms-email/pom.xml" />
+        <option value="$PROJECT_DIR$/ms-acesso/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

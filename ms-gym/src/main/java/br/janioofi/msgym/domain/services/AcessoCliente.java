@@ -27,7 +27,7 @@ public class AcessoCliente {
     private final EmailProducer producer;
     private static final LocalDateTime NOW = LocalDateTime.now();
 
-    public Boolean acessoLiberado(Long id_cliente){
+    public void situacaoCliente(Long id_cliente){
         Pagamento pagamento = pagamentoRepository.findByUltimoPagamento(id_cliente);
         Plano plano = planoRepository.findById(pagamento.getPlano().getId_plano()).orElseThrow();
         Cliente cliente = clienteRepository.findById(id_cliente).orElseThrow();
@@ -40,8 +40,6 @@ public class AcessoCliente {
         }
         acessoComAtencao(cliente, dataValidaPagamento, dataBloqueio);
         acessoBloqueado(cliente, dataBloqueio);
-
-        return true;
     }
 
     private void acessoComAtencao(Cliente cliente, LocalDateTime dataValidaPagamento, LocalDateTime dataBloqueio){
