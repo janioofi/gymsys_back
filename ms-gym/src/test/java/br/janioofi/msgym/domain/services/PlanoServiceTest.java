@@ -30,7 +30,7 @@ class PlanoServiceTest {
     private static final String DESCRICAO   = "MENSAL";
     public static final LocalDate VIGENCIA = LocalDate.now();
     public static final BigDecimal PRECO = new BigDecimal("90.2");
-    private static final Integer QTD = 1;
+    private static final Long QTD = 1L;
 
     private PlanoDTO planoDTO;
     private Plano plano = new Plano();

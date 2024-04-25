@@ -42,5 +42,5 @@ public class Plano implements Serializable {
 
     @NotNull(message = "Quantidade de Meses é obrigatória")
     @Column(name = "quantidade_meses")
-    private Integer quantidadeMeses;// Quantidade de meses que o pagamento vale.
+    private Long quantidadeMeses;// Quantidade de meses que o pagamento vale.
 }

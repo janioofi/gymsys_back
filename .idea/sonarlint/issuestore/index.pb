@@ -367,3 +367,7 @@ Kms-gym/src/main/java/br/janioofi/msgym/configs/security/SecurityFilter.java,6\
 Rms-gym/src/main/java/br/janioofi/msgym/configs/security/SecurityConfiguration.java,2\b\2b06c37731185097624eb1bf97aa4226808e0b4b
 q
 Ams-gym/src/main/java/br/janioofi/msgym/configs/infra/Swagger.java,d\6\d6c91c2a3e9e40406caea84ac2b900343bbc7506
+w
+Gms-gym/src/main/java/br/janioofi/msgym/exceptions/InvalidException.java,7\5\75aa319e7c249a1c2b94e081fd79dac7eb4296d7
+y
+Ims-gym/src/main/java/br/janioofi/msgym/domain/services/AcessoCliente.java,0\8\08519bab466edac3c1f2cbfe04f4fa3a4d4a4786

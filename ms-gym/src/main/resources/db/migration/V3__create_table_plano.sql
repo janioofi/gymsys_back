@@ -4,7 +4,7 @@ CREATE TABLE plano
     descricao        VARCHAR(255)                            NOT NULL,
     vigencia         date                                    NOT NULL,
     preco            DECIMAL                                 NOT NULL,
-    quantidade_meses INTEGER                                 NOT NULL,
+    quantidade_meses BIGINT                                  NOT NULL,
     CONSTRAINT pk_plano PRIMARY KEY (id_plano)
 );
 

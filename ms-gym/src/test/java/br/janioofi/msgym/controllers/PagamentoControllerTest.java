@@ -35,7 +35,7 @@ class PagamentoControllerTest {
     private static final FormaPagamento FORMA_PAGAMENTO = FormaPagamento.PIX;
     private static final BigDecimal VALOR = BigDecimal.valueOf(90);
     private static final LocalDateTime DATA_PAGAMENTO = LocalDateTime.now();
-    private static final Plano PLANO = new Plano(1L, "Teste",  LocalDate.now(), BigDecimal.valueOf(20), 1);
+    private static final Plano PLANO = new Plano(1L, "Teste",  LocalDate.now(), BigDecimal.valueOf(20), 1L);
     private static final Cliente CLIENTE = new Cliente(1L, "Janio", "Filho", "Nen", "52315278821", "janio@gmail.com",  LocalDate.of(2001, Month.JUNE, 1), PLANO, LocalDate.now(), LocalDateTime.now());
 
     @InjectMocks
