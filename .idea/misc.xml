@@ -18,6 +18,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/ms-acesso/pom.xml" />
         <option value="$PROJECT_DIR$/ms-payment/pom.xml" />
       </set>
     </option>

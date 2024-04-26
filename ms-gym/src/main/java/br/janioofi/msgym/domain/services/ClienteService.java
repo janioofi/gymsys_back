@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -52,7 +51,6 @@ public class ClienteService {
         cliente.setData_nascimento(clienteDTO.data_nascimento());
         cliente.setApelido(clienteDTO.apelido());
         cliente.setSobrenome(clienteDTO.sobrenome());
-        repository.save(cliente);
         sendEmailCliente(cliente);
         return repository.save(cliente);
     }
@@ -92,7 +90,6 @@ public class ClienteService {
         }
     }
 
-    @Transactional
     public void sendEmailCliente(Cliente cliente){
         EmailDto email = new EmailDto(cliente.getEmail(), "Cadastro na Social Gym", "Seja-bem vindo a nossa academia, estamos muito contentes com sua chegada ao nosso time. \nVeja alguns detalhes do seu cadastro: "+
                 "\nPlano: " + cliente.getPlano().getDescricao() +

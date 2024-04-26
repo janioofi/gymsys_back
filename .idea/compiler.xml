@@ -8,7 +8,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="eurekaserver" />
-        <module name="ms-acesso" />
         <module name="ms-cloudgateway" />
         <module name="ms-email" />
         <module name="ms-gym" />
@@ -16,6 +15,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="gym-ssys" target="17" />
+      <module name="ms-acesso" target="17" />
       <module name="ms-payment" target="17" />
     </bytecodeTargetLevel>
   </component>

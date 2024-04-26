@@ -19,12 +19,13 @@ import java.time.format.DateTimeFormatter;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class AcessoCliente {
+public class ValidacaoCliente {
 
     private final PagamentoRepository pagamentoRepository;
     private final ClienteRepository clienteRepository;
     private final PlanoRepository planoRepository;
     private final EmailProducer producer;
+
     private static final LocalDateTime NOW = LocalDateTime.now();
 
     public void situacaoCliente(Long id_cliente){

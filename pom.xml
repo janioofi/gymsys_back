@@ -20,7 +20,6 @@
         <module>ms-gym</module>
         <module>ms-cloudgateway</module>
         <module>ms-email</module>
-        <module>ms-acesso</module>
     </modules>
 
     <properties>
