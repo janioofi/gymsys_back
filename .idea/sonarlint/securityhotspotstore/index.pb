@@ -371,8 +371,6 @@ w
 Gms-gym/src/main/java/br/janioofi/msgym/exceptions/InvalidException.java,7\5\75aa319e7c249a1c2b94e081fd79dac7eb4296d7
 y
 Ims-gym/src/main/java/br/janioofi/msgym/domain/services/AcessoCliente.java,0\8\08519bab466edac3c1f2cbfe04f4fa3a4d4a4786
-
-Oms-gym/src/main/java/br/janioofi/msgym/controllers/AcessoClienteController.java,2\c\2cdb283df15cad0427382b093e2897769a06a634
 A
 ms-acesso/pom.xml,9\d\9dbc63cb3bd8ff2586e6a996b1aba54d450c3358
 u
@@ -387,3 +385,5 @@ _
 /ms-acesso/.mvn/wrapper/maven-wrapper.properties,2\4\24a38e735b368de25f188b4ebab6ebaf6123cd84
 B
 ms-acesso/mvnw.cmd,3\d\3d4730d49927be442044ae8277820ce7c9c6e3fe
+m
+=ms-acesso/src/main/java/br/janioofi/msacesso/domain/dtos.java,0\d\0dbf37a3f60fe769ee0a5b04531e550cf32e4949

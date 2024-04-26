@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: ms-acesso
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+  datasource:
+    url: jdbc:postgresql://localhost:5432/academia_test
+    username: postgres
+    password: 12345678
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 0
+
+mq:
+  queues:
+    ms-email: ms-email
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}

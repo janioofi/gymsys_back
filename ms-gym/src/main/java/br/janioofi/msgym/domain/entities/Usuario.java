@@ -1,6 +1,7 @@
 package br.janioofi.msgym.domain.entities;
 
 import br.janioofi.msgym.domain.enums.Perfil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -46,6 +47,7 @@ public class Usuario implements Serializable, UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Perfil> perfis = new HashSet<>();
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
@@ -55,31 +57,37 @@ public class Usuario implements Serializable, UserDetails {
         return authorities;
     }
 
+    @JsonIgnore
     @Override
     public String getPassword() {
         return getSenha();
     }
 
+    @JsonIgnore
     @Override
     public String getUsername() {
         return getUsuario();
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled() {
         return true;
