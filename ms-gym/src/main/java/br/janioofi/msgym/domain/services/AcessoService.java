@@ -16,9 +16,10 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class AcessoService {
+
     private final AcessoRepository repository;
     private final ClienteRepository clienteRepository;
-    private final ValidacaoCliente validacaoCliente;
+    private final ValidacaoAcesso validacaoCliente;
 
     public Acesso entrada(AcessoDTO acessoDTO){
         Acesso acesso = new Acesso();
@@ -45,5 +46,10 @@ public class AcessoService {
     public List<Acesso> findAllAcessosDoDia(){
         return repository.findAllAcessosDoDia(LocalDateTime.now().toString());
     }
+
+    public List<Acesso> findAllAcessosPeriodo(String data_inicio, String data_final){
+        return repository.findAllAcessosPeriodo(data_inicio, data_final);
+    }
+
 
 }

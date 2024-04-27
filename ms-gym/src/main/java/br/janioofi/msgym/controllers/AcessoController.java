@@ -28,9 +28,14 @@ public class AcessoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.saida(acessoDTO));
     }
 
-    @GetMapping("/apenas-hoje")
+    @GetMapping("/diario")
     public ResponseEntity<List<Acesso>> findAllAcessosDoDia(){
         return ResponseEntity.ok().body(service.findAllAcessosDoDia());
+    }
+
+    @GetMapping()
+    public ResponseEntity<List<Acesso>> findAllAcessosPeriodo(@RequestParam String data_inicio, @RequestParam String data_final){
+        return ResponseEntity.ok().body(service.findAllAcessosPeriodo(data_inicio, data_final));
     }
 
 }

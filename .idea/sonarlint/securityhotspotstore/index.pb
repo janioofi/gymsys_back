@@ -383,3 +383,5 @@ Pms-gym/src/main/java/br/janioofi/msgym/domain/repositories/AcessoRepository.jav
 Lms-gym/src/main/java/br/janioofi/msgym/domain/services/ValidacaoCliente.java,0\c\0c4d803654994adaa825b877eb3c499a34dd2801
 x
 Hms-gym/src/main/java/br/janioofi/msgym/controllers/AcessoController.java,9\7\970e225ed22e9f6a1caa9763ff9e906af477c263
+{
+Kms-gym/src/main/java/br/janioofi/msgym/domain/services/ValidacaoAcesso.java,a\0\a0fcaf2ac4cc7d1dc2787142a0850473fb90d91c

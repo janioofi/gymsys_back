@@ -23,7 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class ValidacaoCliente {
+public class ValidacaoAcesso {
 
     private final PagamentoRepository pagamentoRepository;
     private final ClienteRepository clienteRepository;
