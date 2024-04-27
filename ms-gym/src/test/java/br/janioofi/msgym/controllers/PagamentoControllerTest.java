@@ -124,6 +124,6 @@ class PagamentoControllerTest {
 
     private void startPagamento() {
         pagamento = new Pagamento(ID, DATA_PAGAMENTO, FORMA_PAGAMENTO,  CLIENTE, PLANO, VALOR);
-        pagamentoDTO = new PagamentoDTO(ID, FORMA_PAGAMENTO, 1L, 1L, VALOR);
+        pagamentoDTO = new PagamentoDTO(ID, FORMA_PAGAMENTO, 1L, VALOR);
     }
 }

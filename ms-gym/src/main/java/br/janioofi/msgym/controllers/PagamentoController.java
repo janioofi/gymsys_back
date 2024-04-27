@@ -38,9 +38,4 @@ public class PagamentoController {
     public ResponseEntity<Pagamento> update(@PathVariable Long id, @RequestBody PagamentoDTO pagamentoDTO){
         return ResponseEntity.ok().body(service.update(id, pagamentoDTO));
     }
-
-    @GetMapping("/ultimo-pagamento/{id}")
-    public ResponseEntity<Pagamento> update(@PathVariable Long id){
-        return ResponseEntity.ok().body(service.findByUltimoPagamento(id));
-    }
 }

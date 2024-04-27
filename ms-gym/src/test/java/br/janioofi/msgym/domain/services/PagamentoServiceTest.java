@@ -9,6 +9,7 @@ import br.janioofi.msgym.domain.enums.FormaPagamento;
 import br.janioofi.msgym.domain.repositories.ClienteRepository;
 import br.janioofi.msgym.domain.repositories.PagamentoRepository;
 import br.janioofi.msgym.domain.repositories.PlanoRepository;
+import br.janioofi.msgym.exceptions.InvalidException;
 import br.janioofi.msgym.exceptions.RecordNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,11 +39,12 @@ class PagamentoServiceTest {
     private static final FormaPagamento FORMA_PAGAMENTO = FormaPagamento.PIX;
     private static final BigDecimal VALOR = BigDecimal.valueOf(90);
     private static final LocalDateTime DATA_PAGAMENTO = LocalDateTime.now();
-    private static final Plano PLANO = new Plano(1L, "Teste",  LocalDate.now(), BigDecimal.valueOf(20), 1L);
+    private static final Plano PLANO = new Plano(1L, "Teste",  LocalDate.now(), BigDecimal.valueOf(90), 1L);
     private static final Cliente CLIENTE = new Cliente(1L, "Janio", "Filho", "Nen", "52315278821", "janio@gmail.com",  LocalDate.of(2001, Month.JUNE, 1), PLANO, LocalDate.now(), LocalDateTime.now());
 
     private Pagamento pagamento;
     private PagamentoDTO pagamentoDTO;
+    private PagamentoDTO pagamentoDTOError;
     private Optional<Pagamento> optionalPagamento;
     private Optional<Plano> optionalPlano;
     private Optional<Cliente> optionalCliente;
@@ -126,6 +128,18 @@ class PagamentoServiceTest {
     }
 
     @Test
+    void whenCreateThenInvalidException() {
+        when(planoRepository.findById(anyLong())).thenReturn(optionalPlano);
+        when(clienteRepository.findById(anyLong())).thenReturn(optionalCliente);
+        when(repository.save(any())).thenReturn(pagamento);
+        try{
+            Pagamento response = service.create(pagamentoDTOError);
+        }catch (Exception e){
+            assertEquals(InvalidException.class, e.getClass());
+        }
+    }
+
+    @Test
     void whenUpdateThenReturnAnRecordNotFoundException() {
         when(repository.save(any())).thenReturn(pagamento);
 
@@ -138,7 +152,8 @@ class PagamentoServiceTest {
 
     private void startPagamento() {
         pagamento = new Pagamento(ID, DATA_PAGAMENTO, FORMA_PAGAMENTO,  CLIENTE, PLANO, VALOR);
-        pagamentoDTO = new PagamentoDTO(ID, FORMA_PAGAMENTO, 1L, 1L, VALOR);
+        pagamentoDTO = new PagamentoDTO(ID, FORMA_PAGAMENTO, 1L, VALOR);
+        pagamentoDTOError = new PagamentoDTO(ID, FORMA_PAGAMENTO, 1L, BigDecimal.valueOf(30));
         optionalPagamento = Optional.of(new Pagamento(ID, DATA_PAGAMENTO, FORMA_PAGAMENTO,  CLIENTE, PLANO, VALOR));
         optionalCliente = Optional.of(CLIENTE);
         optionalPlano = Optional.of(PLANO);

@@ -70,10 +70,6 @@ public class PagamentoService {
         }).orElseThrow(() -> new RecordNotFoundException("Nenhum pagamento encontrado com ID: " + id));
     }
 
-    public Pagamento findByUltimoPagamento(Long id_cliente){
-        return repository.findByUltimoPagamento(id_cliente).orElseThrow();
-    }
-
     private void sendEmailPagamentoRealizado(Cliente cliente, Plano plano, Pagamento pagamento){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String data = pagamento.getData_pagamento().format(formatter);

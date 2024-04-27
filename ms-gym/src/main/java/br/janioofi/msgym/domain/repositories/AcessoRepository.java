@@ -43,5 +43,17 @@ public interface AcessoRepository extends JpaRepository<Acesso, UUID> {
     """, nativeQuery = true)
     List<Acesso> findAllAcessosPeriodo(@Param("data_inicio") String data_inicio, @Param("data_final") String data_final);
 
-
+    @Query(value = """
+    WITH
+    ultimo_acesso AS (
+    SELECT max(data_registro) AS data_registro, id_cliente FROM acesso
+    WHERE CAST(data_registro AS date) = CAST(:data_registro AS date)
+    GROUP BY id_cliente)
+    SELECT a.* FROM ultimo_acesso uc
+    JOIN acesso a ON a.id_cliente = uc.id_cliente AND uc.data_registro = a.data_registro
+    WHERE a.tipo_registro = 'ENTRADA'
+    AND CAST(a.data_registro AS date) = CAST(:data_registro AS date)
+    ORDER BY a.data_registro
+    """, nativeQuery = true)
+    List<Acesso> treinandoAgora(@Param("data_registro") String data_registro);
 }

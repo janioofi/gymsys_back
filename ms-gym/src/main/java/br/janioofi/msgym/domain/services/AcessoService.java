@@ -51,5 +51,9 @@ public class AcessoService {
         return repository.findAllAcessosPeriodo(data_inicio, data_final);
     }
 
+    public List<Acesso> treinandoAgora(){
+        return repository.treinandoAgora(LocalDateTime.now().toString());
+    }
+
 
 }

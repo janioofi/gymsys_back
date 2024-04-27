@@ -38,4 +38,9 @@ public class AcessoController {
         return ResponseEntity.ok().body(service.findAllAcessosPeriodo(data_inicio, data_final));
     }
 
+    @GetMapping("/presentes")
+    public ResponseEntity<List<Acesso>> treinandoAgora(){
+        return ResponseEntity.ok().body(service.treinandoAgora());
+    }
+
 }
