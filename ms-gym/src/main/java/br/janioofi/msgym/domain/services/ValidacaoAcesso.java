@@ -34,8 +34,8 @@ public class ValidacaoAcesso {
     public void verificaEntrada(Long id_cliente){
         Optional<Pagamento> pagamento = pagamentoRepository.findByUltimoPagamento(id_cliente);
         if(pagamento.isEmpty()) throw new InvalidException("Nenhum pagamento efetuado");
-        Plano plano = planoRepository.findById(pagamento.get().getPlano().getId_plano()).orElseThrow();
         Cliente cliente = clienteRepository.findById(id_cliente).orElseThrow();
+        Plano plano = planoRepository.findById(cliente.getPlano().getId_plano()).orElseThrow();
 
         LocalDateTime dataValidaPagamento = pagamento.get().getData_pagamento().plusMonths(plano.getQuantidadeMeses());
         LocalDateTime dataBloqueio = dataValidaPagamento.plusDays(5);

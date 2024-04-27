@@ -9,6 +9,5 @@ public record PagamentoDTO (
     Long id_pagamento,
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss") FormaPagamento forma_pagamento,
     Long cliente,
-    Long plano,
     BigDecimal valor
 ){}
