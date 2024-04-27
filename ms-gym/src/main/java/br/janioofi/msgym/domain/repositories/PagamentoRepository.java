@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Optional;
+
 public interface PagamentoRepository extends JpaRepository<Pagamento, Long> {
 
     @Query(value = """
@@ -17,5 +19,5 @@ public interface PagamentoRepository extends JpaRepository<Pagamento, Long> {
     SELECT pag.* FROM pagamento pag
     JOIN ultimo_pagamento up ON up.id_cliente = pag.id_cliente AND pag.data_pagamento = up.data_pagamento
     """, nativeQuery = true)
-    Pagamento findByUltimoPagamento(@Param("id_cliente") Long id_cliente);
+    Optional<Pagamento> findByUltimoPagamento(@Param("id_cliente") Long id_cliente);
 }

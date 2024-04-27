@@ -24,7 +24,7 @@ mq:
 api:
   security:
     token:
-      secret: secret@!@!@
+      secret: secret
 
 eureka:
   client:

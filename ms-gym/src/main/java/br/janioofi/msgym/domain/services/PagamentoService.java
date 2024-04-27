@@ -68,7 +68,7 @@ public class PagamentoService {
     }
 
     public Pagamento findByUltimoPagamento(Long id_cliente){
-        return repository.findByUltimoPagamento(id_cliente);
+        return repository.findByUltimoPagamento(id_cliente).orElseThrow();
     }
 
     private void sendEmailPagamentoRealizado(Cliente cliente, Plano plano, Pagamento pagamento){
