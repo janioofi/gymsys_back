@@ -28,11 +28,10 @@ public class SecurityFilter extends OncePerRequestFilter {
         if(token != null){
             var username = tokenService.validateToken(token);
             UserDetails user = repository.findByUsuario(username).orElseThrow();
-
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
-        response.addHeader("Access-Control-Expose-Headers", "Authorization");
+        response.setHeader("Authorization", token);
         filterChain.doFilter(request, response);
     }
 

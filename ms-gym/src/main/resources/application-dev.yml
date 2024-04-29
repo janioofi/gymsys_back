@@ -13,3 +13,7 @@ api:
   security:
     token:
       secret: secret
+
+logging:
+  level:
+    org.springframework: DEBUG

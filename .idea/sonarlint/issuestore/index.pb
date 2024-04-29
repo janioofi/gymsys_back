@@ -383,3 +383,9 @@ x
 Hms-gym/src/main/java/br/janioofi/msgym/controllers/AcessoController.java,9\7\970e225ed22e9f6a1caa9763ff9e906af477c263
 {
 Kms-gym/src/main/java/br/janioofi/msgym/domain/services/ValidacaoAcesso.java,a\0\a0fcaf2ac4cc7d1dc2787142a0850473fb90d91c
+„
+Tms-cloudgateway/src/main/java/br/janioofi/mscloudgateway/config/WebClientConfig.java,d\2\d21d050c62b24643fda652142b15787988648642
+„
+Tms-gym/src/main/java/br/janioofi/msgym/configs/security/JWTAuthenticationFilter.java,1\f\1f78b6fdb23b69590fafd1d8464d5416dcd73e56
+y
+Ims-gym/src/main/java/br/janioofi/msgym/domain/dtos/AcessoResponseDTO.java,6\3\6375f4c7105f6cec61ac65afb22bda48e89dfb5c

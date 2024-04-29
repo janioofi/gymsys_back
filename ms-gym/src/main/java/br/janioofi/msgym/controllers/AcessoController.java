@@ -1,7 +1,7 @@
 package br.janioofi.msgym.controllers;
 
 import br.janioofi.msgym.domain.dtos.AcessoDTO;
-import br.janioofi.msgym.domain.entities.Acesso;
+import br.janioofi.msgym.domain.dtos.AcessoResponseDTO;
 import br.janioofi.msgym.domain.services.AcessoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -19,27 +19,27 @@ public class AcessoController {
     private final AcessoService service;
 
     @PostMapping("/entrada")
-    public ResponseEntity<Acesso> entrada(@RequestBody AcessoDTO acessoDTO){
+    public ResponseEntity<AcessoResponseDTO> entrada(@RequestBody AcessoDTO acessoDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.entrada(acessoDTO));
     }
 
     @PostMapping("/saida")
-    public ResponseEntity<Acesso> saida(@RequestBody AcessoDTO acessoDTO){
+    public ResponseEntity<AcessoResponseDTO> saida(@RequestBody AcessoDTO acessoDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.saida(acessoDTO));
     }
 
     @GetMapping("/diario")
-    public ResponseEntity<List<Acesso>> findAllAcessosDoDia(){
+    public ResponseEntity<List<AcessoResponseDTO>> findAllAcessosDoDia(){
         return ResponseEntity.ok().body(service.findAllAcessosDoDia());
     }
 
     @GetMapping()
-    public ResponseEntity<List<Acesso>> findAllAcessosPeriodo(@RequestParam String data_inicio, @RequestParam String data_final){
+    public ResponseEntity<List<AcessoResponseDTO>> findAllAcessosPeriodo(@RequestParam String data_inicio, @RequestParam String data_final){
         return ResponseEntity.ok().body(service.findAllAcessosPeriodo(data_inicio, data_final));
     }
 
     @GetMapping("/presentes")
-    public ResponseEntity<List<Acesso>> treinandoAgora(){
+    public ResponseEntity<List<AcessoResponseDTO>> treinandoAgora(){
         return ResponseEntity.ok().body(service.treinandoAgora());
     }
 
