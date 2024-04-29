@@ -35,7 +35,7 @@ public class AuthenticationService {
         return new LoginResponse(token);
     }
 
-    public String register(@Valid UsuarioRegistro user){
+    public void register(@Valid UsuarioRegistro user){
         Set<Perfil> perfis = new HashSet<>(user.perfis());
         if(this.repository.findByUsuario(user.usuario()).isPresent()){
             throw new BusinessException("Já existe um usuário cadastrado com o mesmo nome");
@@ -44,6 +44,5 @@ public class AuthenticationService {
         Usuario data = new Usuario(null, user.usuario(), encryptedPassword, perfis);
         repository.save(data);
         log.info("Novo usuario cadastrado: " + data);
-        return "Usuario registrado com sucesso";
     }
 }

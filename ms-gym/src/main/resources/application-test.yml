@@ -2,10 +2,7 @@ spring:
   application:
     name: ms-gym
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
+    addresses: ${RABBIT_MQ}
   datasource:
     url: jdbc:postgresql://localhost:5432/gym
     username: postgres
@@ -32,7 +29,7 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-
-logging:
-  level:
-    org.springframework: DEBUG
+#
+#logging:
+#  level:
+#    org.springframework: DEBUG

@@ -23,6 +23,7 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody UsuarioRegistro user){
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.register(user));
+        service.register(user);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
