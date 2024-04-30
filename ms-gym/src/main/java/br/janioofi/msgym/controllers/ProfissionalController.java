@@ -1,6 +1,7 @@
 package br.janioofi.msgym.controllers;
 
 import br.janioofi.msgym.domain.dtos.ProfissionalDTO;
+import br.janioofi.msgym.domain.dtos.ProfissionalResponseDTO;
 import br.janioofi.msgym.domain.entities.Profissional;
 import br.janioofi.msgym.domain.services.ProfissionalService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,7 +20,7 @@ public class ProfissionalController {
     private final ProfissionalService service;
 
     @GetMapping
-    public ResponseEntity<List<Profissional>> findAll(){
+    public ResponseEntity<List<ProfissionalResponseDTO>> findAll(){
         return ResponseEntity.ok().body(service.findAll());
     }
 

@@ -3,6 +3,7 @@ package br.janioofi.msgym.domain.services;
 import br.janioofi.msemail.domain.dtos.EmailDto;
 import br.janioofi.msgym.configs.producer.EmailProducer;
 import br.janioofi.msgym.domain.dtos.ProfissionalDTO;
+import br.janioofi.msgym.domain.dtos.ProfissionalResponseDTO;
 import br.janioofi.msgym.domain.entities.Profissional;
 import br.janioofi.msgym.domain.entities.Usuario;
 import br.janioofi.msgym.domain.repositories.ProfissionalRepository;
@@ -26,9 +27,10 @@ public class ProfissionalService {
     private final ProfissionalRepository repository;
     private final UsuarioRepository usuarioRepository;
 
-    public List<Profissional> findAll(){
+    public List<ProfissionalResponseDTO> findAll(){
+        List<Profissional> profissionais = repository.findAll();
         log.info("Listando profissionais.");
-        return repository.findAll();
+        return profissionais.stream().map(this::mapToDTO).toList();
     }
 
     public Profissional findById(Long id){
@@ -92,5 +94,11 @@ public class ProfissionalService {
                 "\nData de nascimento: " + profissional.getData_nascimento() +
                 "\nUsuário registrado: " + profissional.getUsuario().getUsuario());
         producer.publishMessageEmail(email);
+    }
+
+    private ProfissionalResponseDTO mapToDTO(Profissional profissional) {
+        return new ProfissionalResponseDTO(profissional.getId_profissional(), profissional.getNome(), profissional.getSobrenome(), profissional.getCpf(), profissional.getEmail(),
+                profissional.getData_nascimento(),
+                profissional.getData_admissao(), profissional.getUsuario().getUsuario());
     }
 }

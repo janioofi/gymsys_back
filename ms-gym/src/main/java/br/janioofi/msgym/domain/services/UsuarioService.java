@@ -1,9 +1,12 @@
 package br.janioofi.msgym.domain.services;
 
 import br.janioofi.msgym.domain.dtos.UsuarioDTO;
+import br.janioofi.msgym.domain.entities.Profissional;
 import br.janioofi.msgym.domain.entities.Usuario;
 import br.janioofi.msgym.domain.enums.Perfil;
+import br.janioofi.msgym.domain.repositories.ProfissionalRepository;
 import br.janioofi.msgym.domain.repositories.UsuarioRepository;
+import br.janioofi.msgym.exceptions.BusinessException;
 import br.janioofi.msgym.exceptions.RecordNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +26,7 @@ import java.util.Set;
 public class UsuarioService {
 
     private final UsuarioRepository repository;
+    private final ProfissionalRepository profissionalRepository;
 
     public List<Usuario> findAll(){
         log.info("Listando usuários.");
@@ -35,6 +39,7 @@ public class UsuarioService {
     }
 
     public void delete(Long id){
+        validaDelete(id);
         log.info("Deletando usuário com  ID: " + id);
         repository.deleteById(id);
     }
@@ -60,4 +65,17 @@ public class UsuarioService {
         }
     }
 
+    private void validaDelete(Long id){
+        Optional<Profissional> prof = profissionalRepository.findByUsuario(id);
+        Optional<Usuario> usuario = repository.findById(id);
+
+        if(prof.isPresent()){
+            throw new BusinessException("Existe um profissional cadastrado com este usuário");
+        }
+        if(usuario.isPresent() && usuario.get().getUsuario().equalsIgnoreCase("admin")){
+            throw new BusinessException("Usuário admin não pode ser deletado");
+        }else if(usuario.isEmpty()){
+            throw new RecordNotFoundException("Nenhum usuário com este ID");
+        }
+    }
 }
