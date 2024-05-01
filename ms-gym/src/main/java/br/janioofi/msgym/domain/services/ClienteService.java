@@ -28,21 +28,23 @@ public class ClienteService {
     private final ClienteRepository repository;
     private final PlanoRepository planoRepository;
 
-    public List<Cliente> findAll(){
+    public List<ClienteDTO> findAll(){
         log.info("Listando todos os clientes");
-        return repository.findAll();
+        List<Cliente> clientes = repository.findAll();
+        return clientes.stream().map(this::mapToDTO).toList();
     }
 
-    public Cliente findById(Long id){
+    public ClienteDTO findById(Long id){
         log.info("Buscando por cliente com ID: " + id);
-        return repository.findById(id).orElseThrow(() -> new RecordNotFoundException("Nenhum cliente encontrado com o ID: " + id));
+        Cliente cliente = repository.findById(id).orElseThrow(() -> new RecordNotFoundException("Nenhum cliente encontrado com o ID: " + id));
+        return this.mapToDTO(cliente);
     }
 
-    public Cliente create(@Valid ClienteDTO clienteDTO){
+    public ClienteDTO create(@Valid ClienteDTO clienteDTO){
         validaCpfEEmail(clienteDTO);
         log.info("Criando novo cliente: " + clienteDTO);
         Cliente cliente = new Cliente();
-        Plano plano = planoRepository.findById(clienteDTO.plano()).orElseThrow(() ->  new RecordNotFoundException("Nenhum plano encontrado com o ID: " + clienteDTO.plano()));
+        Plano plano = planoRepository.findById(clienteDTO.id_plano()).orElseThrow(() ->  new RecordNotFoundException("Nenhum plano encontrado com o ID: " + clienteDTO.plano()));
         cliente.setNome(clienteDTO.nome());
         cliente.setCpf(clienteDTO.cpf());
         cliente.setEmail(clienteDTO.email());
@@ -52,7 +54,7 @@ public class ClienteService {
         cliente.setApelido(clienteDTO.apelido());
         cliente.setSobrenome(clienteDTO.sobrenome());
         sendEmailCliente(cliente);
-        return repository.save(cliente);
+        return this.mapToDTO(repository.save(cliente));
     }
 
     public void delete(Long id){
@@ -60,11 +62,11 @@ public class ClienteService {
         repository.deleteById(id);
     }
     
-    public Cliente update(Long id,@Valid ClienteDTO clienteDTO){
+    public ClienteDTO update(Long id,@Valid ClienteDTO clienteDTO){
         validaCpfEEmail(clienteDTO);
         log.info("Atualizando cliente de ID: " + id + ", com informações: " + clienteDTO);
-        Plano plano = planoRepository.findById(clienteDTO.plano()).orElseThrow(() ->  new RecordNotFoundException("Nenhum plano encontrado com o ID: " + clienteDTO.plano()));
-        return repository.findById(id).map(data -> {
+        Plano plano = planoRepository.findById(clienteDTO.id_plano()).orElseThrow(() ->  new RecordNotFoundException("Nenhum plano encontrado com o ID: " + clienteDTO.plano()));
+        Cliente cliente = repository.findById(id).map(data -> {
                     data.setNome(clienteDTO.nome());
                     data.setCpf(clienteDTO.cpf());
                     data.setApelido(clienteDTO.apelido());
@@ -75,6 +77,7 @@ public class ClienteService {
                     data.setPlano(plano);
                     return repository.save(data);
                 }).orElseThrow(() -> new RecordNotFoundException("Nenhum cliente encontrado com o ID: " + id));
+        return this.mapToDTO(cliente);
     }
 
     public void validaCpfEEmail(ClienteDTO clienteDTO){
@@ -98,4 +101,8 @@ public class ClienteService {
         producer.publishMessageEmail(email);
     }
 
+    private ClienteDTO mapToDTO(Cliente cliente) {
+        return new ClienteDTO(cliente.getId_cliente(), cliente.getNome(), cliente.getSobrenome(), cliente.getApelido(), cliente.getCpf(),
+        cliente.getEmail(), cliente.getData_nascimento(), cliente.getPlano().getDescricao(), cliente.getPlano().getId_plano());
+    }
 }

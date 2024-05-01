@@ -31,19 +31,19 @@ public class PagamentoService {
 
     private static final LocalDateTime NOW = LocalDateTime.now();
 
-    public List<Pagamento> findAll(){
+    public List<PagamentoDTO> findAll(){
         log.info("Listando todos os pagamentos");
-        return repository.findAll();
+        return repository.findAll().stream().map(this::mapToDTO).toList();
     }
 
-    public Pagamento findById(Long id){
+    public PagamentoDTO findById(Long id){
         log.info("Buscando pagamento por ID: " + id);
-        return repository.findById(id).orElseThrow(() -> new RecordNotFoundException("Nenhum pagamento encontrado com ID: " + id));
+        return this.mapToDTO(repository.findById(id).orElseThrow(() -> new RecordNotFoundException("Nenhum pagamento encontrado com ID: " + id)));
     }
 
-    public Pagamento create(PagamentoDTO pagamentoDTO){
+    public PagamentoDTO create(PagamentoDTO pagamentoDTO){
         Pagamento pagamento = new Pagamento();
-        Cliente cliente = clienteRepository.findById(pagamentoDTO.cliente()).orElseThrow(() ->  new RecordNotFoundException("Nenhum cliente encontrado com o ID: " + pagamentoDTO.cliente()));
+        Cliente cliente = clienteRepository.findById(pagamentoDTO.id_cliente()).orElseThrow(() ->  new RecordNotFoundException("Nenhum cliente encontrado com o ID: " + pagamentoDTO.cliente()));
         Plano plano = planoRepository.findById(cliente.getPlano().getId_plano()).orElseThrow(() ->  new RecordNotFoundException("Nenhum plano encontrado com o ID: " + cliente.getPlano().getId_plano()));
 
         pagamento.setData_pagamento(NOW);
@@ -55,19 +55,20 @@ public class PagamentoService {
         log.info("Novo pagamento gerado: " + pagamento);
         sendEmailPagamentoRealizado(cliente, plano, pagamento);
         verificaPagamento(pagamento, plano);
-        return repository.save(pagamento);
+        return this.mapToDTO(repository.save(pagamento));
     }
 
-    public Pagamento update(Long id, PagamentoDTO pagamentoDTO){
-        Cliente cliente = clienteRepository.findById(pagamentoDTO.cliente()).orElseThrow(() ->  new RecordNotFoundException("Nenhum cliente encontrado com o ID: " + pagamentoDTO.cliente()));
+    public PagamentoDTO update(Long id, PagamentoDTO pagamentoDTO){
+        Cliente cliente = clienteRepository.findById(pagamentoDTO.id_cliente()).orElseThrow(() ->  new RecordNotFoundException("Nenhum cliente encontrado com o ID: " + pagamentoDTO.cliente()));
         Plano plano = planoRepository.findById(cliente.getPlano().getId_plano()).orElseThrow(() ->  new RecordNotFoundException("Nenhum plano encontrado com o ID: " + cliente.getPlano().getId_plano()));
-        return repository.findById(id).map(pagamento -> {
+        Pagamento pag = repository.findById(id).map(pagamento -> {
             pagamento.setCliente(cliente);
             pagamento.setPlano(plano);
             pagamento.setValor(pagamentoDTO.valor());
             verificaPagamento(pagamento, plano);
             return repository.save(pagamento);
         }).orElseThrow(() -> new RecordNotFoundException("Nenhum pagamento encontrado com ID: " + id));
+        return this.mapToDTO(pag);
     }
 
     private void sendEmailPagamentoRealizado(Cliente cliente, Plano plano, Pagamento pagamento){
@@ -85,6 +86,10 @@ public class PagamentoService {
         if(pagamento.getValor().doubleValue() != plano.getPreco().doubleValue()){
             throw new InvalidException("O valor que está sendo pago é diferente de " + plano.getPreco() + ", do plano " + plano.getDescricao());
         }
+    }
+
+    private PagamentoDTO mapToDTO(Pagamento pagamento) {
+        return new PagamentoDTO(pagamento.getId_pagamento(), pagamento.getForma_pagamento(), pagamento.getCliente().getNome(), pagamento.getCliente().getId_cliente(), pagamento.getValor());
     }
 
 }

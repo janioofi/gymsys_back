@@ -3,6 +3,7 @@ package br.janioofi.msgym.domain.services;
 import br.janioofi.msgym.domain.dtos.UsuarioDTO;
 import br.janioofi.msgym.domain.entities.Usuario;
 import br.janioofi.msgym.domain.enums.Perfil;
+import br.janioofi.msgym.domain.repositories.ProfissionalRepository;
 import br.janioofi.msgym.domain.repositories.UsuarioRepository;
 import br.janioofi.msgym.exceptions.RecordNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,13 +39,15 @@ class UsuarioServiceTest {
     private UsuarioService service;
     @Mock
     private UsuarioRepository repository;
+    @Mock
+    private ProfissionalRepository profissionalRepository;
     private final ModelMapper mapper = new ModelMapper().registerModule(new org.modelmapper.record.RecordModule());
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         startUsuario();
-        service = new UsuarioService(repository);
+        service = new UsuarioService(repository, profissionalRepository);
     }
 
     @Test

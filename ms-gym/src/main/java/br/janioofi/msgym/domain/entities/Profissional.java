@@ -47,11 +47,11 @@ public class Profissional implements Serializable {
     @NotEmpty(message = "Campo email não pode  estar vazio")
     private String email;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Past
     private LocalDate data_nascimento;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @PastOrPresent
     private LocalDate data_admissao;
 

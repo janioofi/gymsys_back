@@ -28,14 +28,14 @@ public class UsuarioService {
     private final UsuarioRepository repository;
     private final ProfissionalRepository profissionalRepository;
 
-    public List<Usuario> findAll(){
+    public List<UsuarioDTO> findAll(){
         log.info("Listando usuários.");
-        return repository.findAll();
+        return repository.findAll().stream().map(this::mapToDTO).toList();
     }
 
-    public Usuario findById(Long id){
+    public UsuarioDTO findById(Long id){
         log.info("Buscando usuário com  ID: " + id);
-        return repository.findById(id).orElseThrow(() -> new RecordNotFoundException("Nenhum usuário encontrado com o ID: " + id));
+        return this.mapToDTO(repository.findById(id).orElseThrow(() -> new RecordNotFoundException("Nenhum usuário encontrado com o ID: " + id)));
     }
 
     public void delete(Long id){
@@ -44,17 +44,18 @@ public class UsuarioService {
         repository.deleteById(id);
     }
 
-    public Usuario update(@Valid Long id, UsuarioDTO user){
+    public UsuarioDTO update(@Valid Long id, UsuarioDTO user){
         log.info("Atualizando usuário com  ID:  " + id + ",  com as novas informações: " + user);
         validaUsuario(user);
         String encryptedPassword = new BCryptPasswordEncoder().encode(user.senha());
         Set<Perfil> perfis = new HashSet<>(user.perfis());
-        return repository.findById(id).map(recordFound -> {
+        Usuario usuario = repository.findById(id).map(recordFound -> {
                 recordFound.setUsuario(user.usuario());
                 recordFound.setPerfis(perfis);
                 recordFound.setSenha(encryptedPassword);
                 return repository.save(recordFound);
                 }).orElseThrow(() -> new RecordNotFoundException("Nenhum usuário encontrado com o ID: " + id));
+        return this.mapToDTO(usuario);
     }
 
     private void validaUsuario(UsuarioDTO objDTO) {
@@ -77,5 +78,9 @@ public class UsuarioService {
         }else if(usuario.isEmpty()){
             throw new RecordNotFoundException("Nenhum usuário com este ID");
         }
+    }
+
+    private UsuarioDTO mapToDTO(Usuario usuario) {
+        return new UsuarioDTO(usuario.getId_usuario(), usuario.getUsuario(), usuario.getSenha(), usuario.getPerfis());
     }
 }

@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public record PlanoDTO (
     Long id_plano,
     String descricao,
-    @JsonFormat(pattern = "dd/MM/yyyy") LocalDate vigencia,
+    @JsonFormat(pattern = "yyyy-MM-dd") LocalDate vigencia,
     BigDecimal preco,
     Long quantidadeMeses
 ){}

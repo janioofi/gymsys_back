@@ -29,7 +29,7 @@ public class Pagamento implements Serializable {
     private Long id_pagamento;
 
     @NotNull
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime data_pagamento;
 
     @NotNull

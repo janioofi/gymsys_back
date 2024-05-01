@@ -24,7 +24,7 @@ public class Acesso {
     @Enumerated(EnumType.ORDINAL)
     private Cliente cliente;
     private String cpf;
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime data_registro;
     @Enumerated(EnumType.STRING)
     private TipoRegistro tipoRegistro;

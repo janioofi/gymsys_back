@@ -47,7 +47,7 @@ public class Cliente implements Serializable {
     private String email;
 
     @Past
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate data_nascimento;
 
     @ManyToOne

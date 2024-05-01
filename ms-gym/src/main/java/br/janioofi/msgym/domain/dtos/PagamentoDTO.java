@@ -7,7 +7,8 @@ import java.math.BigDecimal;
 
 public record PagamentoDTO (
     Long id_pagamento,
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss") FormaPagamento forma_pagamento,
-    Long cliente,
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") FormaPagamento forma_pagamento,
+    String cliente,
+    Long id_cliente,
     BigDecimal valor
 ){}

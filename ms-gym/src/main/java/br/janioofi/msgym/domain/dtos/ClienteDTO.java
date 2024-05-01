@@ -12,6 +12,7 @@ public record ClienteDTO (
     String apelido,
     String cpf,
     String email,
-    @JsonFormat(pattern = "dd/MM/yyyy") @Past LocalDate data_nascimento,
-    Long plano
+    @JsonFormat(pattern = "yyyy-MM-dd") @Past LocalDate data_nascimento,
+    String plano,
+    Long id_plano
 ){}

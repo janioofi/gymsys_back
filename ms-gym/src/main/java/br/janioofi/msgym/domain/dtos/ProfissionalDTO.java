@@ -12,7 +12,8 @@ public record ProfissionalDTO(
     String sobrenome,
     String cpf,
     String email,
-    @JsonFormat(pattern = "dd/MM/yyyy") @Past LocalDate data_nascimento,
-    @PastOrPresent @JsonFormat(pattern = "dd/MM/yyyy") LocalDate data_admissao,
-    Long usuario
+    @JsonFormat(pattern = "yyyy-MM-dd") @Past LocalDate data_nascimento,
+    @PastOrPresent @JsonFormat(pattern = "yyyy-MM-dd") LocalDate data_admissao,
+    String usuario,
+    Long id_usuario
 ){}
