@@ -40,6 +40,12 @@ public class ClienteService {
         return this.mapToDTO(cliente);
     }
 
+    public ClienteDTO findByCPF(String cpf){
+        log.info("Buscando por cliente com CPF: " + cpf);
+        Cliente cliente = repository.findByCpf(cpf).orElseThrow(() -> new RecordNotFoundException("Nenhum cliente encontrado com o CPF: " + cpf));
+        return this.mapToDTO(cliente);
+    }
+
     public ClienteDTO create(@Valid ClienteDTO clienteDTO){
         validaCpfEEmail(clienteDTO);
         log.info("Criando novo cliente: " + clienteDTO);
@@ -94,7 +100,7 @@ public class ClienteService {
     }
 
     public void sendEmailCliente(Cliente cliente){
-        EmailDto email = new EmailDto(cliente.getEmail(), "Cadastro na Social Gym", "Seja-bem vindo a nossa academia, estamos muito contentes com sua chegada ao nosso time. \nVeja alguns detalhes do seu cadastro: "+
+        EmailDto email = new EmailDto(cliente.getEmail(), "Cadastro na Social Gym", "Seja-bem vinda(o) a nossa academia, estamos muito contentes com sua chegada ao nosso time. \nVeja alguns detalhes do seu cadastro: "+
                 "\nPlano: " + cliente.getPlano().getDescricao() +
                 "\nValor: R$ " + cliente.getPlano().getPreco() +
                 "\nData cadastro: " + cliente.getData_cadastro());

@@ -33,6 +33,11 @@ public class PagamentoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(pagamento));
     }
 
+    @GetMapping("/periodo")
+    public ResponseEntity<List<PagamentoDTO>> pagamentosPorPeriodo(@RequestParam String data_inicio, @RequestParam String data_final){
+        return ResponseEntity.ok().body(service.pagamentosPoPeriodo(data_inicio, data_final));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<PagamentoDTO> update(@PathVariable Long id, @RequestBody PagamentoDTO pagamentoDTO){
         return ResponseEntity.ok().body(service.update(id, pagamentoDTO));

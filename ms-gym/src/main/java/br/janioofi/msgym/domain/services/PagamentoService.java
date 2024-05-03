@@ -29,8 +29,6 @@ public class PagamentoService {
     private final PlanoRepository planoRepository;
     private final EmailProducer producer;
 
-    private static final LocalDateTime NOW = LocalDateTime.now();
-
     public List<PagamentoDTO> findAll(){
         log.info("Listando todos os pagamentos");
         return repository.findAll().stream().map(this::mapToDTO).toList();
@@ -46,11 +44,12 @@ public class PagamentoService {
         Cliente cliente = clienteRepository.findById(pagamentoDTO.id_cliente()).orElseThrow(() ->  new RecordNotFoundException("Nenhum cliente encontrado com o ID: " + pagamentoDTO.cliente()));
         Plano plano = planoRepository.findById(cliente.getPlano().getId_plano()).orElseThrow(() ->  new RecordNotFoundException("Nenhum plano encontrado com o ID: " + cliente.getPlano().getId_plano()));
 
-        pagamento.setData_pagamento(NOW);
+        pagamento.setData_pagamento(LocalDateTime.now());
         pagamento.setForma_pagamento(pagamentoDTO.forma_pagamento());
         pagamento.setValor(pagamentoDTO.valor());
         pagamento.setPlano(plano);
         pagamento.setCliente(cliente);
+        pagamento.setObservacao(pagamentoDTO.observacao());
 
         log.info("Novo pagamento gerado: " + pagamento);
         sendEmailPagamentoRealizado(cliente, plano, pagamento);
@@ -65,10 +64,17 @@ public class PagamentoService {
             pagamento.setCliente(cliente);
             pagamento.setPlano(plano);
             pagamento.setValor(pagamentoDTO.valor());
+            pagamento.setObservacao(pagamento.getObservacao());
             verificaPagamento(pagamento, plano);
             return repository.save(pagamento);
         }).orElseThrow(() -> new RecordNotFoundException("Nenhum pagamento encontrado com ID: " + id));
         return this.mapToDTO(pag);
+    }
+
+    public List<PagamentoDTO> pagamentosPoPeriodo(String data_inicio, String data_final){
+        List<Pagamento> pagamentos = repository.pagamentosPorPeriodo(data_inicio, data_final);
+        return pagamentos.stream()
+                .map(this::mapToDTO).toList();
     }
 
     private void sendEmailPagamentoRealizado(Cliente cliente, Plano plano, Pagamento pagamento){
@@ -89,7 +95,7 @@ public class PagamentoService {
     }
 
     private PagamentoDTO mapToDTO(Pagamento pagamento) {
-        return new PagamentoDTO(pagamento.getId_pagamento(), pagamento.getForma_pagamento(), pagamento.getCliente().getNome(), pagamento.getCliente().getId_cliente(), pagamento.getValor());
+        return new PagamentoDTO(pagamento.getId_pagamento(), pagamento.getData_pagamento(),pagamento.getForma_pagamento(), pagamento.getPlano().getDescricao(),pagamento.getCliente().getNome(), pagamento.getCliente().getId_cliente(), pagamento.getValor(), pagamento.getObservacao());
     }
 
 }

@@ -28,6 +28,11 @@ public class ClienteController {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
+    @GetMapping("/cpf")
+    public ResponseEntity<ClienteDTO> findByCPF(@RequestParam String cpf){
+        return ResponseEntity.ok().body(service.findByCPF(cpf));
+    }
+
     @PostMapping
     public ResponseEntity<ClienteDTO> create(@RequestBody ClienteDTO clienteDTO){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(clienteDTO));

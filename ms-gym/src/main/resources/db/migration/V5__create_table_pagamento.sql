@@ -6,6 +6,7 @@ CREATE TABLE pagamento
     id_cliente      BIGINT                                  NOT NULL,
     id_plano        BIGINT                                  NOT NULL,
     valor           DECIMAL                                 NOT NULL,
+    observacao      VARCHAR(255),
     CONSTRAINT pk_pagamento PRIMARY KEY (id_pagamento)
 );
 

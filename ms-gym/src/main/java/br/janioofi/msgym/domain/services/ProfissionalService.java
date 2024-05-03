@@ -52,7 +52,8 @@ public class ProfissionalService {
         profissional.setData_admissao(profissionalDTO.data_admissao());
         profissional.setNome(profissionalDTO.nome());
         sendEmailProfissional(profissional);
-        return this.mapToDTO(repository.save(profissional));
+        Profissional id = repository.save(profissional);
+        return this.mapToDTO(id);
     }
 
     public void delete(Long id){
@@ -105,7 +106,7 @@ public class ProfissionalService {
     }
 
     public void sendEmailProfissional(Profissional profissional){
-        EmailDto email = new EmailDto(profissional.getEmail(), "Novo integrante do time Gym Sys", "Seja-bem vindo ao nosso time de profissionais da Gym Sys, ficamos muito felizes com sua entrada e te desejamos muito sucesso nessa nova jornada. \nVeja alguns detalhes do seu cadastro: "+
+        EmailDto email = new EmailDto(profissional.getEmail(), "Novo integrante do time Gym Sys", "Seja-bem vinda(o) ao nosso time de profissionais da Gym Sys, ficamos muito felizes com sua entrada e te desejamos muito sucesso nessa nova jornada. \nVeja alguns detalhes do seu cadastro: "+
                 "\nData de admissão: " + profissional.getData_admissao() +
                 "\nNome: " + profissional.getNome() + " " + profissional.getSobrenome() +
                 "\nData de nascimento: " + profissional.getData_nascimento() +

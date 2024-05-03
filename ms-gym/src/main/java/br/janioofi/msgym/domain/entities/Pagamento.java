@@ -50,5 +50,7 @@ public class Pagamento implements Serializable {
 
     @NotNull
     private BigDecimal valor;
+
+    private String observacao;
 }
 

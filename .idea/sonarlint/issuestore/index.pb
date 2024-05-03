@@ -387,5 +387,3 @@ Kms-gym/src/main/java/br/janioofi/msgym/domain/services/ValidacaoAcesso.java,a\
 Tms-cloudgateway/src/main/java/br/janioofi/mscloudgateway/config/WebClientConfig.java,d\2\d21d050c62b24643fda652142b15787988648642
 y
 Ims-gym/src/main/java/br/janioofi/msgym/domain/dtos/AcessoResponseDTO.java,6\3\6375f4c7105f6cec61ac65afb22bda48e89dfb5c
-
-Oms-gym/src/main/java/br/janioofi/msgym/domain/dtos/ProfissionalResponseDTO.java,f\f\ffe8b424321ad612512cd884a76f0219a31013f9
