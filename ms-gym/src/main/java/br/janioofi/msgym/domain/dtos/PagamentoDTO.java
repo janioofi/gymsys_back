@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 public record PagamentoDTO (
     Long id_pagamento,
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime data_pagamento,
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime data_atualizacao,
     FormaPagamento forma_pagamento,
     String plano,
     String cliente,

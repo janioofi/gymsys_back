@@ -32,6 +32,9 @@ public class Pagamento implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime data_pagamento;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime data_atualizacao;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private FormaPagamento forma_pagamento;

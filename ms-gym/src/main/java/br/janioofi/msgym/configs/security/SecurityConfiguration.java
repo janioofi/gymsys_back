@@ -24,7 +24,7 @@ public class SecurityConfiguration implements WebMvcConfigurer {
     private final SecurityFilter securityFilter;
     private static final String PLANOS = "/api/v1/planos";
     private static final String ADMIN = "ADMIN";
-
+    private static final String[] PUBLIC_MATCHERS = {"/api/v1/login", "/api/v1/register", "/api/v1/acesso/entrada", "/api/v1/acesso/saida"};
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
@@ -32,8 +32,7 @@ public class SecurityConfiguration implements WebMvcConfigurer {
 //                .cors(c -> c.configurationSource(corsConfigurationSource()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/v1/login").permitAll()
-                        .requestMatchers("/api/v1/register").permitAll()
+                        .requestMatchers(PUBLIC_MATCHERS).permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/**").hasRole(ADMIN)
                         .requestMatchers(HttpMethod.POST, PLANOS).hasRole(ADMIN)
                         .requestMatchers(HttpMethod.PUT, PLANOS + "/**").hasRole(ADMIN)

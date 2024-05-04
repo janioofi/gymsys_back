@@ -54,7 +54,7 @@ public class ValidacaoAcesso {
 
     private void verificaUltimoRegistro(Long id_cliente){
         Optional<Acesso> acesso = acessoRepository.ultimoRegistro(id_cliente);
-        if(acesso.isPresent() && (acesso.get().getTipoRegistro() == TipoRegistro.SAIDA)) {throw new InvalidException("Necessário realizar uma entrada");
+        if(acesso.isEmpty()||(acesso.get().getTipoRegistro() == TipoRegistro.SAIDA)) {throw new InvalidException("Necessário realizar uma entrada");
         }
     }
 

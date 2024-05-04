@@ -64,10 +64,13 @@ public class PagamentoService {
             pagamento.setCliente(cliente);
             pagamento.setPlano(plano);
             pagamento.setValor(pagamentoDTO.valor());
-            pagamento.setObservacao(pagamento.getObservacao());
+            pagamento.setObservacao(pagamentoDTO.observacao());
+            pagamento.setForma_pagamento(pagamentoDTO.forma_pagamento());
+            pagamento.setData_atualizacao(LocalDateTime.now());
             verificaPagamento(pagamento, plano);
             return repository.save(pagamento);
         }).orElseThrow(() -> new RecordNotFoundException("Nenhum pagamento encontrado com ID: " + id));
+        log.info("Atualizando pagamento: " + pag);
         return this.mapToDTO(pag);
     }
 
@@ -95,7 +98,7 @@ public class PagamentoService {
     }
 
     private PagamentoDTO mapToDTO(Pagamento pagamento) {
-        return new PagamentoDTO(pagamento.getId_pagamento(), pagamento.getData_pagamento(),pagamento.getForma_pagamento(), pagamento.getPlano().getDescricao(),pagamento.getCliente().getNome(), pagamento.getCliente().getId_cliente(), pagamento.getValor(), pagamento.getObservacao());
+        return new PagamentoDTO(pagamento.getId_pagamento(), pagamento.getData_pagamento(), pagamento.getData_atualizacao(), pagamento.getForma_pagamento(), pagamento.getPlano().getDescricao(),pagamento.getCliente().getNome(), pagamento.getCliente().getId_cliente(), pagamento.getValor(), pagamento.getObservacao());
     }
 
 }

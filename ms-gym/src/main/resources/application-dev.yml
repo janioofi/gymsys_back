@@ -1,6 +1,27 @@
 spring:
   application:
     name: ms-gym
+  rabbitmq:
+    addresses: ${RABBIT_MQ}
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gymsys_dev
+    username: postgres
+    password: 12345678
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 0
+
+mq:
+  queues:
+    ms-email: ms-email
+
+api:
+  security:
+    token:
+      secret: secret
 
 eureka:
   client:
@@ -8,12 +29,3 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
-
-api:
-  security:
-    token:
-      secret: secret
-
-#logging:
-#  level:
-#    org.springframework: DEBUG
