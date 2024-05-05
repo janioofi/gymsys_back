@@ -1,7 +1,6 @@
 package br.janioofi.msgym.controllers;
 
 import br.janioofi.msgym.domain.dtos.ProfissionalDTO;
-import br.janioofi.msgym.domain.entities.Profissional;
 import br.janioofi.msgym.domain.entities.Usuario;
 import br.janioofi.msgym.domain.services.ProfissionalService;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,7 +35,6 @@ class ProfissionalControllerTest {
     public static final Usuario USUARIO = new Usuario();
 
     private ProfissionalDTO profissionalDTO;
-    private Profissional profissional;
 
     @InjectMocks
     private ProfissionalController controller;
@@ -51,74 +49,76 @@ class ProfissionalControllerTest {
         controller = new ProfissionalController(service);
     }
 
-
     @Test
     void whenFindAllThenReturnListOfProfissionalDTO() {
-        when(service.findAll()).thenReturn(List.of(profissional));
+        when(service.findAll()).thenReturn(List.of(profissionalDTO));
 
-        ResponseEntity<List<Profissional>> response = controller.findAll();
+        ResponseEntity<List<ProfissionalDTO>> response = controller.findAll();
         assertNotNull(response);
         assertNotNull(response.getBody());
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(ResponseEntity.class, response.getClass());
-        assertEquals(Profissional.class, response.getBody().get(INDEX).getClass());
-        assertEquals(ID, response.getBody().get(INDEX).getId_profissional());
-        assertEquals(NOME, response.getBody().get(INDEX).getNome());
-        assertEquals(SOBRENOME, response.getBody().get(INDEX).getSobrenome());
-        assertEquals(CPF, response.getBody().get(INDEX).getCpf());
-        assertEquals(EMAIL, response.getBody().get(INDEX).getEmail());
-        assertEquals(DATA_ADMISSAO, response.getBody().get(INDEX).getData_admissao());
-        assertEquals(DATA_NASCIMENTO, response.getBody().get(INDEX).getData_nascimento());
+        assertEquals(ProfissionalDTO.class, response.getBody().get(INDEX).getClass());
+        assertEquals(ID, response.getBody().get(INDEX).id_profissional());
+        assertEquals(NOME, response.getBody().get(INDEX).nome());
+        assertEquals(SOBRENOME, response.getBody().get(INDEX).sobrenome());
+        assertEquals(CPF, response.getBody().get(INDEX).cpf());
+        assertEquals(EMAIL, response.getBody().get(INDEX).email());
+        assertEquals(DATA_ADMISSAO, response.getBody().get(INDEX).data_admissao());
+        assertEquals(DATA_NASCIMENTO, response.getBody().get(INDEX).data_nascimento());
+        assertEquals(USUARIO.getId_usuario(), response.getBody().get(INDEX).id_usuario());
+        assertEquals(USUARIO.getUsuario(), response.getBody().get(INDEX).usuario());
     }
 
     @Test
     void whenFindByIdThenReturnSuccess() {
-        when(service.findById(anyLong())).thenReturn(profissional);
-
-        ResponseEntity<Profissional> response = controller.findById(ID);
-
+        when(service.findById(anyLong())).thenReturn(profissionalDTO);
+        ResponseEntity<ProfissionalDTO> response = controller.findById(ID);
         assertNotNull(response);
         assertNotNull(response.getBody());
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(ResponseEntity.class, response.getClass());
-        assertEquals(Profissional.class, response.getBody().getClass());
-        assertEquals(ID, response.getBody().getId_profissional());
-        assertEquals(NOME, response.getBody().getNome());
-        assertEquals(SOBRENOME, response.getBody().getSobrenome());
-        assertEquals(CPF, response.getBody().getCpf());
-        assertEquals(EMAIL, response.getBody().getEmail());
-        assertEquals(DATA_ADMISSAO, response.getBody().getData_admissao());
-        assertEquals(DATA_NASCIMENTO, response.getBody().getData_nascimento());
+        assertEquals(ProfissionalDTO.class, response.getBody().getClass());
+        assertEquals(ID, response.getBody().id_profissional());
+        assertEquals(NOME, response.getBody().nome());
+        assertEquals(SOBRENOME, response.getBody().sobrenome());
+        assertEquals(CPF, response.getBody().cpf());
+        assertEquals(EMAIL, response.getBody().email());
+        assertEquals(DATA_ADMISSAO, response.getBody().data_admissao());
+        assertEquals(DATA_NASCIMENTO, response.getBody().data_nascimento());
+        assertEquals(USUARIO.getId_usuario(), response.getBody().id_usuario());
+        assertEquals(USUARIO.getUsuario(), response.getBody().usuario());
     }
 
     @Test
     void whenCreateThenReturnCreated() {
-        when(service.create(any())).thenReturn(profissional);
+        when(service.create(any())).thenReturn(profissionalDTO);
 
-        ResponseEntity<Profissional> response = controller.create(profissionalDTO);
+        ResponseEntity<ProfissionalDTO> response = controller.create(profissionalDTO);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(ResponseEntity.class, response.getClass());
-
     }
 
     @Test
     void whenUpdateThenReturnSuccess() {
-        when(service.update(anyLong(), any())).thenReturn(profissional);
+        when(service.update(anyLong(), any())).thenReturn(profissionalDTO);
 
-        ResponseEntity<Profissional> response = controller.update(ID, profissionalDTO);
+        ResponseEntity<ProfissionalDTO> response = controller.update(ID, profissionalDTO);
         assertNotNull(response);
         assertNotNull(response.getBody());
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(ResponseEntity.class, response.getClass());
-        assertEquals(Profissional.class, response.getBody().getClass());
-        assertEquals(ID, response.getBody().getId_profissional());
-        assertEquals(NOME, response.getBody().getNome());
-        assertEquals(SOBRENOME, response.getBody().getSobrenome());
-        assertEquals(CPF, response.getBody().getCpf());
-        assertEquals(EMAIL, response.getBody().getEmail());
-        assertEquals(DATA_ADMISSAO, response.getBody().getData_admissao());
-        assertEquals(DATA_NASCIMENTO, response.getBody().getData_nascimento());
+        assertEquals(ProfissionalDTO.class, response.getBody().getClass());
+        assertEquals(ID, response.getBody().id_profissional());
+        assertEquals(NOME, response.getBody().nome());
+        assertEquals(SOBRENOME, response.getBody().sobrenome());
+        assertEquals(CPF, response.getBody().cpf());
+        assertEquals(EMAIL, response.getBody().email());
+        assertEquals(DATA_ADMISSAO, response.getBody().data_admissao());
+        assertEquals(DATA_NASCIMENTO, response.getBody().data_nascimento());
+        assertEquals(USUARIO.getId_usuario(), response.getBody().id_usuario());
+        assertEquals(USUARIO.getUsuario(), response.getBody().usuario());
     }
 
     @Test
@@ -133,7 +133,6 @@ class ProfissionalControllerTest {
     }
 
     private void startProfissional() {
-        profissionalDTO = new ProfissionalDTO(ID, NOME, SOBRENOME, CPF, EMAIL, DATA_NASCIMENTO, DATA_ADMISSAO, 1L);
-        profissional = new Profissional(ID, NOME, SOBRENOME, CPF, EMAIL, DATA_NASCIMENTO, DATA_ADMISSAO, USUARIO);
+        profissionalDTO = new ProfissionalDTO(ID, NOME, SOBRENOME, CPF, EMAIL, DATA_NASCIMENTO, DATA_ADMISSAO, USUARIO.getUsuario(), USUARIO.getId_usuario());
     }
 }

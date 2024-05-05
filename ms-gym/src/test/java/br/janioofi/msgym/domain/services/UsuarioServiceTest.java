@@ -27,7 +27,7 @@ class UsuarioServiceTest {
 
     private static final Integer INDEX   = 0;
     public static final Long ID = 1L;
-    private static final String USUARIO   = "admin";
+    private static final String USUARIO   = "TESTE";
     public static final String SENHA = "admin";
     public static final Set<Perfil> PERFIL = new HashSet<>(Collections.singleton(Perfil.ADMIN));
 
@@ -53,13 +53,13 @@ class UsuarioServiceTest {
     @Test
     void whenFindByIdThenReturnAUsuarioInstance() {
         when(repository.findById(anyLong())).thenReturn(optionalUser);
-        Usuario response = mapper.map(service.findById(ID), Usuario.class);
+        UsuarioDTO response = service.findById(ID);
         assertNotNull(response);
-        assertEquals(Usuario.class, response.getClass());
-        assertEquals(ID, response.getId_usuario());
-        assertEquals(USUARIO, response.getUsuario());
-        assertEquals(SENHA, response.getSenha());
-        assertEquals(PERFIL, response.getPerfis());
+        assertEquals(UsuarioDTO.class, response.getClass());
+        assertEquals(ID, response.id_usuario());
+        assertEquals(USUARIO, response.usuario());
+        assertEquals(SENHA, response.senha());
+        assertEquals(PERFIL, response.perfis());
     }
 
     @Test
@@ -77,14 +77,14 @@ class UsuarioServiceTest {
     @Test
     void whenFindAllThenReturnAListOfUsers() {
         when(repository.findAll()).thenReturn(List.of(usuario));
-        List<Usuario> response = service.findAll().stream().map(object  -> mapper.map(object, Usuario.class)).toList();
+        List<UsuarioDTO> response = service.findAll();
         assertNotNull(response);
         assertEquals(1, response.size());
-        assertEquals(Usuario.class, response.get(INDEX).getClass());
-        assertEquals(ID, response.get(INDEX).getId_usuario());
-        assertEquals(USUARIO, response.get(INDEX).getUsuario());
-        assertEquals(SENHA, response.get(INDEX).getSenha());
-        assertEquals(PERFIL, response.get(INDEX).getPerfis());
+        assertEquals(UsuarioDTO.class, response.get(INDEX).getClass());
+        assertEquals(ID, response.get(INDEX).id_usuario());
+        assertEquals(USUARIO, response.get(INDEX).usuario());
+        assertEquals(SENHA, response.get(INDEX).senha());
+        assertEquals(PERFIL, response.get(INDEX).perfis());
 
     }
 

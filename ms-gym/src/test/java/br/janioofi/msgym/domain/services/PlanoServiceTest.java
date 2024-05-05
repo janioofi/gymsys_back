@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -41,7 +40,6 @@ class PlanoServiceTest {
 
     @Mock
     private PlanoRepository repository;
-    private final ModelMapper mapper = new ModelMapper().registerModule(new org.modelmapper.record.RecordModule());
 
     @BeforeEach
     void setUp() {
@@ -53,14 +51,14 @@ class PlanoServiceTest {
     @Test
     void whenFindByIdThenReturnAPlanoInstance() {
         when(repository.findById(anyLong())).thenReturn(optionalPlano);
-        Plano response = mapper.map(service.findById(ID), Plano.class);
+        PlanoDTO response = service.findById(ID);
         assertNotNull(response);
-        assertEquals(Plano.class, response.getClass());
-        assertEquals(ID, response.getId_plano());
-        assertEquals(DESCRICAO, response.getDescricao());
-        assertEquals(VIGENCIA, response.getVigencia());
-        assertEquals(PRECO, response.getPreco());
-        assertEquals(QTD, response.getQuantidadeMeses());
+        assertEquals(PlanoDTO.class, response.getClass());
+        assertEquals(ID, response.id_plano());
+        assertEquals(DESCRICAO, response.descricao());
+        assertEquals(VIGENCIA, response.vigencia());
+        assertEquals(PRECO, response.preco());
+        assertEquals(QTD, response.quantidadeMeses());
     }
 
     @Test
@@ -78,29 +76,29 @@ class PlanoServiceTest {
     @Test
     void whenFindAllThenReturnAListOfPlanos() {
         when(repository.findAll()).thenReturn(List.of(plano));
-        List<Plano> response = service.findAll().stream().map(object  -> mapper.map(object, Plano.class)).toList();
+        List<PlanoDTO> response = service.findAll();
         assertNotNull(response);
         assertEquals(1, response.size());
-        assertEquals(Plano.class, response.get(INDEX).getClass());
-        assertEquals(ID, response.get(INDEX).getId_plano());
-        assertEquals(DESCRICAO, response.get(INDEX).getDescricao());
-        assertEquals(VIGENCIA, response.get(INDEX).getVigencia());
-        assertEquals(PRECO, response.get(INDEX).getPreco());
-        assertEquals(QTD, response.get(INDEX).getQuantidadeMeses());
+        assertEquals(PlanoDTO.class, response.get(INDEX).getClass());
+        assertEquals(ID, response.get(INDEX).id_plano());
+        assertEquals(DESCRICAO, response.get(INDEX).descricao());
+        assertEquals(VIGENCIA, response.get(INDEX).vigencia());
+        assertEquals(PRECO, response.get(INDEX).preco());
+        assertEquals(QTD, response.get(INDEX).quantidadeMeses());
     }
 
     @Test
     void whenCreateThenReturnSuccess() {
         when(repository.save(any())).thenReturn(plano);
-        Plano response = mapper.map(service.create(planoDTO), Plano.class);
+        PlanoDTO response = service.create(planoDTO);
 
         assertNotNull(response);
-        assertEquals(Plano.class, response.getClass());
-        assertEquals(ID, response.getId_plano());
-        assertEquals(DESCRICAO, response.getDescricao());
-        assertEquals(VIGENCIA, response.getVigencia());
-        assertEquals(PRECO, response.getPreco());
-        assertEquals(QTD, response.getQuantidadeMeses());
+        assertEquals(PlanoDTO.class, response.getClass());
+        assertEquals(ID, response.id_plano());
+        assertEquals(DESCRICAO, response.descricao());
+        assertEquals(VIGENCIA, response.vigencia());
+        assertEquals(PRECO, response.preco());
+        assertEquals(QTD, response.quantidadeMeses());
     }
 
     @Test

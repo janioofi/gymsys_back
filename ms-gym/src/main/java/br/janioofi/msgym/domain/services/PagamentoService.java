@@ -83,7 +83,7 @@ public class PagamentoService {
     private void sendEmailPagamentoRealizado(Cliente cliente, Plano plano, Pagamento pagamento){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         String data = pagamento.getData_pagamento().format(formatter);
-        EmailDto email = new EmailDto(cliente.getEmail(), "Pagamento Realizado", "Foi realizado o pagamento do seu plano na Gym Sys, confira os detalhes:\n" +
+        EmailDto email = new EmailDto(cliente.getEmail(), "Pagamento Realizado", "Foi realizado o pagamento do seu plano na Social Gym, confira os detalhes:\n" +
                 "Data de pagamento: " + data +"\n" +
                 "Plano que foi pago: " + plano.getDescricao() +"\n" +
                 "Valor pago: " + pagamento.getValor() + "\n" +

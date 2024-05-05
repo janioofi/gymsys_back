@@ -1,7 +1,6 @@
 package br.janioofi.msgym.controllers;
 
 import br.janioofi.msgym.domain.dtos.UsuarioDTO;
-import br.janioofi.msgym.domain.entities.Usuario;
 import br.janioofi.msgym.domain.enums.Perfil;
 import br.janioofi.msgym.domain.services.UsuarioService;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +33,6 @@ class UsuarioControllerTest {
     public static final Set<Perfil> PERFIL = new HashSet<>(Collections.singleton(Perfil.ADMIN));
 
     private UsuarioDTO usuarioDTO;
-    private Usuario usuario;
 
     @InjectMocks
     private UsuarioController controller;
@@ -51,50 +49,50 @@ class UsuarioControllerTest {
 
     @Test
     void whenFindAllThenReturnListOfUsuarioDTO() {
-        when(service.findAll()).thenReturn(List.of(usuario));
+        when(service.findAll()).thenReturn(List.of(usuarioDTO));
 
-        ResponseEntity<List<Usuario>> response = controller.findAll();
+        ResponseEntity<List<UsuarioDTO>> response = controller.findAll();
         assertNotNull(response);
         assertNotNull(response.getBody());
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(ResponseEntity.class, response.getClass());
-        assertEquals(Usuario.class, response.getBody().get(INDEX).getClass());
-        assertEquals(ID, response.getBody().get(INDEX).getId_usuario());
-        assertEquals(USUARIO, response.getBody().get(INDEX).getUsuario());
-        assertEquals(SENHA, response.getBody().get(INDEX).getSenha());
-        assertEquals(PERFIL, response.getBody().get(INDEX).getPerfis());
+        assertEquals(UsuarioDTO.class, response.getBody().get(INDEX).getClass());
+        assertEquals(ID, response.getBody().get(INDEX).id_usuario());
+        assertEquals(USUARIO, response.getBody().get(INDEX).usuario());
+        assertEquals(SENHA, response.getBody().get(INDEX).senha());
+        assertEquals(PERFIL, response.getBody().get(INDEX).perfis());
     }
 
     @Test
     void whenFindByIdThenReturnSuccess() {
-        when(service.findById(anyLong())).thenReturn(usuario);
+        when(service.findById(anyLong())).thenReturn(usuarioDTO);
 
-        ResponseEntity<Usuario> response = controller.findById(ID);
+        ResponseEntity<UsuarioDTO> response = controller.findById(ID);
 
         assertNotNull(response);
         assertNotNull(response.getBody());
 
-        assertEquals(ID, response.getBody().getId_usuario());
-        assertEquals(USUARIO, response.getBody().getUsuario());
-        assertEquals(SENHA, response.getBody().getSenha());
-        assertEquals(PERFIL, response.getBody().getPerfis());
+        assertEquals(ID, response.getBody().id_usuario());
+        assertEquals(USUARIO, response.getBody().usuario());
+        assertEquals(SENHA, response.getBody().senha());
+        assertEquals(PERFIL, response.getBody().perfis());
     }
 
     @Test
     void whenUpdateThenReturnSuccess() {
-        when(service.update(anyLong(), any())).thenReturn(usuario);
+        when(service.update(anyLong(), any())).thenReturn(usuarioDTO);
 
-        ResponseEntity<Usuario> response = controller.update(ID, usuarioDTO);
+        ResponseEntity<UsuarioDTO> response = controller.update(ID, usuarioDTO);
         assertNotNull(response);
         assertNotNull(response.getBody());
         assertEquals(ResponseEntity.class, response.getClass());
-        assertEquals(Usuario.class, response.getBody().getClass());
+        assertEquals(UsuarioDTO.class, response.getBody().getClass());
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        assertEquals(ID, response.getBody().getId_usuario());
-        assertEquals(USUARIO, response.getBody().getUsuario());
-        assertEquals(SENHA, response.getBody().getSenha());
-        assertEquals(PERFIL, response.getBody().getPerfis());
+        assertEquals(ID, response.getBody().id_usuario());
+        assertEquals(USUARIO, response.getBody().usuario());
+        assertEquals(SENHA, response.getBody().senha());
+        assertEquals(PERFIL, response.getBody().perfis());
 
     }
 
@@ -111,6 +109,5 @@ class UsuarioControllerTest {
 
     private void startUsuario() {
         usuarioDTO = new UsuarioDTO(ID, USUARIO, SENHA, PERFIL);
-        usuario = new Usuario(ID, USUARIO, SENHA, PERFIL);
     }
 }

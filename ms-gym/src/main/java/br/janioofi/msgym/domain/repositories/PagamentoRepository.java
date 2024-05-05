@@ -28,4 +28,7 @@ public interface PagamentoRepository extends JpaRepository<Pagamento, Long> {
     ORDER BY p.data_pagamento;
     """, nativeQuery = true)
     List<Pagamento> pagamentosPorPeriodo(@Param("data_inicio") String data_inicio, @Param("data_final") String data_final);
+
+    @Query(value = "SELECT * FROM pagamento WHERE id_cliente = :id_cliente", nativeQuery = true)
+    Optional<List<Pagamento>> pagamentosPorCliente(@Param("id_cliente") Long id_cliente);
 }

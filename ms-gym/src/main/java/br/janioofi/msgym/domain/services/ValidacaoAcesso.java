@@ -43,8 +43,8 @@ public class ValidacaoAcesso {
         if(LocalDateTime.now().isAfter(dataValidaPagamento) && LocalDateTime.now().isBefore(dataBloqueio)){
             sendEmailPagamentoPendente(cliente, dataBloqueio);
         }
-        acessoComAtencao(cliente, dataValidaPagamento, dataBloqueio);
         acessoBloqueado(cliente, dataBloqueio);
+        acessoComAtencao(cliente, dataValidaPagamento, dataBloqueio);
         verificaUltimaEntrada(id_cliente);
     }
 
@@ -62,7 +62,7 @@ public class ValidacaoAcesso {
         Optional<Acesso> acesso = acessoRepository.ultimaEntrada(id_cliente);
         if(acesso.isPresent()){
             LocalDateTime tempoMinimo = acesso.get().getData_registro().plusMinutes(20); // TEMPO MINIMO QUE A PESSOA PODE REALIZAR OUTRO ACESSO
-            if(LocalDateTime.now().isBefore(tempoMinimo)) throw new InvalidException("Você realizou um acesso nos últimos 30 minutos");
+            if(LocalDateTime.now().isBefore(tempoMinimo)) throw new InvalidException("Você realizou um acesso nos últimos 20 minutos");
         }
     }
 

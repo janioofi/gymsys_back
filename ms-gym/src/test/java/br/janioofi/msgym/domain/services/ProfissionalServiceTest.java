@@ -66,16 +66,18 @@ class ProfissionalServiceTest {
     @Test
     void whenFindByIdThenReturnAProfissionalInstance() {
         when(repository.findById(anyLong())).thenReturn(optionalProfissional);
-        Profissional response = service.findById(ID);
+        ProfissionalDTO response = service.findById(ID);
         assertNotNull(response);
-        assertEquals(Profissional.class, response.getClass());
-        assertEquals(ID, response.getId_profissional());
-        assertEquals(NOME, response.getNome());
-        assertEquals(SOBRENOME, response.getSobrenome());
-        assertEquals(CPF, response.getCpf());
-        assertEquals(EMAIL, response.getEmail());
-        assertEquals(DATA_NASCIMENTO, response.getData_nascimento());
-        assertEquals(DATA_ADMISSAO, response.getData_admissao());
+        assertEquals(ProfissionalDTO.class, response.getClass());
+        assertEquals(ID, response.id_profissional());
+        assertEquals(NOME, response.nome());
+        assertEquals(SOBRENOME, response.sobrenome());
+        assertEquals(CPF, response.cpf());
+        assertEquals(EMAIL, response.email());
+        assertEquals(DATA_NASCIMENTO, response.data_nascimento());
+        assertEquals(DATA_ADMISSAO, response.data_admissao());
+        assertEquals(USUARIO.getId_usuario(), response.id_usuario());
+        assertEquals(USUARIO.getUsuario(), response.usuario());
     }
 
     @Test
@@ -93,17 +95,19 @@ class ProfissionalServiceTest {
     @Test
     void whenFindAllThenReturnAListOfProfissionais() {
         when(repository.findAll()).thenReturn(List.of(profissional));
-        List<Profissional> response = service.findAll();
+        List<ProfissionalDTO> response = service.findAll();
         assertNotNull(response);
         assertEquals(1, response.size());
-        assertEquals(Profissional.class, response.get(INDEX).getClass());
-        assertEquals(ID, response.get(INDEX).getId_profissional());
-        assertEquals(NOME, response.get(INDEX).getNome());
-        assertEquals(SOBRENOME, response.get(INDEX).getSobrenome());
-        assertEquals(CPF, response.get(INDEX).getCpf());
-        assertEquals(EMAIL, response.get(INDEX).getEmail());
-        assertEquals(DATA_NASCIMENTO, response.get(INDEX).getData_nascimento());
-        assertEquals(DATA_ADMISSAO, response.get(INDEX).getData_admissao());
+        assertEquals(ProfissionalDTO.class, response.get(INDEX).getClass());
+        assertEquals(ID, response.get(INDEX).id_profissional());
+        assertEquals(NOME, response.get(INDEX).nome());
+        assertEquals(SOBRENOME, response.get(INDEX).sobrenome());
+        assertEquals(CPF, response.get(INDEX).cpf());
+        assertEquals(EMAIL, response.get(INDEX).email());
+        assertEquals(DATA_NASCIMENTO, response.get(INDEX).data_nascimento());
+        assertEquals(DATA_ADMISSAO, response.get(INDEX).data_admissao());
+        assertEquals(USUARIO.getUsuario(), response.get(INDEX).usuario());
+        assertEquals(USUARIO.getId_usuario(), response.get(INDEX).id_usuario());
 
     }
 
@@ -111,17 +115,19 @@ class ProfissionalServiceTest {
     void whenCreateThenReturnSuccess() {
         when(usuarioRepository.findById(anyLong())).thenReturn(optionalUsuario);
         when(repository.save(any())).thenReturn(profissional);
-        Profissional response = service.create(profissionalDTO);
+        ProfissionalDTO response = service.create(profissionalDTO);
 
         assertNotNull(response);
-        assertEquals(Profissional.class, response.getClass());
-        assertEquals(ID, response.getId_profissional());
-        assertEquals(NOME, response.getNome());
-        assertEquals(SOBRENOME, response.getSobrenome());
-        assertEquals(CPF, response.getCpf());
-        assertEquals(EMAIL, response.getEmail());
-        assertEquals(DATA_NASCIMENTO, response.getData_nascimento());
-        assertEquals(DATA_ADMISSAO, response.getData_admissao());
+        assertEquals(ProfissionalDTO.class, response.getClass());
+        assertEquals(ID, response.id_profissional());
+        assertEquals(NOME, response.nome());
+        assertEquals(SOBRENOME, response.sobrenome());
+        assertEquals(CPF, response.cpf());
+        assertEquals(EMAIL, response.email());
+        assertEquals(DATA_NASCIMENTO, response.data_nascimento());
+        assertEquals(DATA_ADMISSAO, response.data_admissao());
+        assertEquals(USUARIO.getId_usuario(), response.id_usuario());
+        assertEquals(USUARIO.getUsuario(), response.usuario());
     }
 
     @Test
@@ -167,7 +173,7 @@ class ProfissionalServiceTest {
 
     private void startProfissional(){
         profissional = new Profissional(ID, NOME, SOBRENOME, CPF, EMAIL, DATA_NASCIMENTO, DATA_ADMISSAO, USUARIO);
-        profissionalDTO = new ProfissionalDTO(ID, NOME, SOBRENOME, CPF, EMAIL, DATA_NASCIMENTO, DATA_ADMISSAO, 1L);
+        profissionalDTO = new ProfissionalDTO(ID, NOME, SOBRENOME, CPF, EMAIL, DATA_NASCIMENTO, DATA_ADMISSAO, USUARIO.getUsuario(), USUARIO.getId_usuario());
         optionalProfissional = Optional.of(new Profissional(ID, NOME, SOBRENOME, CPF, EMAIL, DATA_NASCIMENTO, DATA_ADMISSAO, USUARIO));
         optionalUsuario = Optional.of(new Usuario(1L, "Teste", "teste", new HashSet<>(Collections.singleton(Perfil.ADMIN))));
     }

@@ -5,6 +5,7 @@ import br.janioofi.msgym.domain.dtos.ClienteDTO;
 import br.janioofi.msgym.domain.entities.Cliente;
 import br.janioofi.msgym.domain.entities.Plano;
 import br.janioofi.msgym.domain.repositories.ClienteRepository;
+import br.janioofi.msgym.domain.repositories.PagamentoRepository;
 import br.janioofi.msgym.domain.repositories.PlanoRepository;
 import br.janioofi.msgym.exceptions.RecordNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,6 +55,8 @@ class ClienteServiceTest {
     private ClienteRepository repository;
     @Mock
     private PlanoRepository planoRepository;
+    @Mock
+    private PagamentoRepository pagamentoRepository;
 
     @Mock
     private EmailProducer producer;
@@ -62,25 +65,24 @@ class ClienteServiceTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         startCliente();
-        service = new ClienteService(producer, repository, planoRepository);
+        service = new ClienteService(producer, repository, planoRepository, pagamentoRepository);
     }
 
     @Test
     void whenFindByIdThenReturnAClienteInstance() {
         when(repository.findById(anyLong())).thenReturn(optionalCliente);
-        Cliente response = service.findById(ID);
+        ClienteDTO response = service.findById(ID);
         assertNotNull(response);
-        assertEquals(Cliente.class, response.getClass());
-        assertEquals(ID, response.getId_cliente());
-        assertEquals(NOME, response.getNome());
-        assertEquals(SOBRENOME, response.getSobrenome());
-        assertEquals(APELIDO, response.getApelido());
-        assertEquals(CPF, response.getCpf());
-        assertEquals(EMAIL, response.getEmail());
-        assertEquals(DATA_CADASTRO, response.getData_cadastro());
-        assertEquals(DATA_NASCIMENTO, response.getData_nascimento());
-        assertEquals(DATA_ATUALIZACAO, response.getData_atualizacao());
-        assertEquals(PLANO, response.getPlano());
+        assertEquals(ClienteDTO.class, response.getClass());
+        assertEquals(ID, response.id_cliente());
+        assertEquals(NOME, response.nome());
+        assertEquals(SOBRENOME, response.sobrenome());
+        assertEquals(APELIDO, response.apelido());
+        assertEquals(CPF, response.cpf());
+        assertEquals(EMAIL, response.email());
+        assertEquals(DATA_NASCIMENTO, response.data_nascimento());
+        assertEquals(PLANO.getDescricao(), response.plano());
+        assertEquals(PLANO.getId_plano(), response.id_plano());
     }
 
     @Test
@@ -98,20 +100,19 @@ class ClienteServiceTest {
     @Test
     void whenFindAllThenReturnAListOfClientes() {
         when(repository.findAll()).thenReturn(List.of(cliente));
-        List<Cliente> response = service.findAll();
+        List<ClienteDTO> response = service.findAll();
         assertNotNull(response);
         assertEquals(1, response.size());
-        assertEquals(Cliente.class, response.get(INDEX).getClass());
-        assertEquals(ID, response.get(INDEX).getId_cliente());
-        assertEquals(NOME, response.get(INDEX).getNome());
-        assertEquals(SOBRENOME, response.get(INDEX).getSobrenome());
-        assertEquals(APELIDO, response.get(INDEX).getApelido());
-        assertEquals(CPF, response.get(INDEX).getCpf());
-        assertEquals(EMAIL, response.get(INDEX).getEmail());
-        assertEquals(DATA_CADASTRO, response.get(INDEX).getData_cadastro());
-        assertEquals(DATA_NASCIMENTO, response.get(INDEX).getData_nascimento());
-        assertEquals(DATA_ATUALIZACAO, response.get(INDEX).getData_atualizacao());
-        assertEquals(PLANO, response.get(INDEX).getPlano());
+        assertEquals(ClienteDTO.class, response.get(INDEX).getClass());
+        assertEquals(ID, response.get(INDEX).id_cliente());
+        assertEquals(NOME, response.get(INDEX).nome());
+        assertEquals(SOBRENOME, response.get(INDEX).sobrenome());
+        assertEquals(APELIDO, response.get(INDEX).apelido());
+        assertEquals(CPF, response.get(INDEX).cpf());
+        assertEquals(EMAIL, response.get(INDEX).email());
+        assertEquals(DATA_NASCIMENTO, response.get(INDEX).data_nascimento());
+        assertEquals(PLANO.getDescricao(), response.get(INDEX).plano());
+        assertEquals(PLANO.getId_plano(), response.get(INDEX).id_plano());
     }
 
     @Test
@@ -119,20 +120,19 @@ class ClienteServiceTest {
         when(planoRepository.findById(anyLong())).thenReturn(plano);
         when(repository.save(any())).thenReturn(cliente);
 
-        Cliente response = service.create(clienteDTO);
+        ClienteDTO response = service.create(clienteDTO);
 
         assertNotNull(response);
-        assertEquals(Cliente.class, response.getClass());
-        assertEquals(ID, response.getId_cliente());
-        assertEquals(NOME, response.getNome());
-        assertEquals(SOBRENOME, response.getSobrenome());
-        assertEquals(APELIDO, response.getApelido());
-        assertEquals(CPF, response.getCpf());
-        assertEquals(EMAIL, response.getEmail());
-        assertEquals(DATA_CADASTRO, response.getData_cadastro());
-        assertEquals(DATA_NASCIMENTO, response.getData_nascimento());
-        assertEquals(DATA_ATUALIZACAO, response.getData_atualizacao());
-        assertEquals(PLANO, response.getPlano());
+        assertEquals(ClienteDTO.class, response.getClass());
+        assertEquals(ID, response.id_cliente());
+        assertEquals(NOME, response.nome());
+        assertEquals(SOBRENOME, response.sobrenome());
+        assertEquals(APELIDO, response.apelido());
+        assertEquals(CPF, response.cpf());
+        assertEquals(EMAIL, response.email());
+        assertEquals(DATA_NASCIMENTO, response.data_nascimento());
+        assertEquals(PLANO.getDescricao(), response.plano());
+        assertEquals(PLANO.getId_plano(), response.id_plano());
     }
 
     @Test
@@ -168,7 +168,6 @@ class ClienteServiceTest {
     @Test
     void whenUpdateThenReturnAnRecordNotFoundException() {
         when(repository.save(any())).thenReturn(cliente);
-
         try {
             service.update(ID, clienteDTO);
         }catch (Exception e){
@@ -179,7 +178,7 @@ class ClienteServiceTest {
     private void startCliente() {
         cliente = new Cliente(ID, NOME, SOBRENOME, APELIDO, CPF, EMAIL, DATA_NASCIMENTO, PLANO, DATA_CADASTRO, DATA_ATUALIZACAO);
         optionalCliente = Optional.of(new Cliente(ID, NOME, SOBRENOME, APELIDO, CPF, EMAIL, DATA_NASCIMENTO, PLANO, DATA_CADASTRO, DATA_ATUALIZACAO));
-        clienteDTO = new ClienteDTO(ID, NOME, SOBRENOME, APELIDO, CPF, EMAIL, DATA_NASCIMENTO, 1L);
+        clienteDTO = new ClienteDTO(ID, NOME, SOBRENOME, APELIDO, CPF, EMAIL, DATA_NASCIMENTO, PLANO.getDescricao(),PLANO.getId_plano());
         plano = Optional.of(new Plano(1L, "Teste",  LocalDate.now(), BigDecimal.valueOf(20), 1L));
     }
 }

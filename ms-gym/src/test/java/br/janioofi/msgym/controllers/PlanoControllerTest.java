@@ -1,7 +1,6 @@
 package br.janioofi.msgym.controllers;
 
 import br.janioofi.msgym.domain.dtos.PlanoDTO;
-import br.janioofi.msgym.domain.entities.Plano;
 import br.janioofi.msgym.domain.services.PlanoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +32,6 @@ class PlanoControllerTest {
     private static final Long QTD = 1L;
 
     private PlanoDTO planoDTO;
-    private Plano plano;
 
     @InjectMocks
     private PlanoController controller;
@@ -50,42 +48,42 @@ class PlanoControllerTest {
 
     @Test
     void whenFindAllThenReturnListOfPlanoDTO() {
-        when(service.findAll()).thenReturn(List.of(plano));
+        when(service.findAll()).thenReturn(List.of(planoDTO));
 
-        ResponseEntity<List<Plano>> response = controller.findAll();
+        ResponseEntity<List<PlanoDTO>> response = controller.findAll();
         assertNotNull(response);
         assertNotNull(response.getBody());
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(ResponseEntity.class, response.getClass());
-        assertEquals(Plano.class, response.getBody().get(INDEX).getClass());
-        assertEquals(ID, response.getBody().get(INDEX).getId_plano());
-        assertEquals(DESCRICAO, response.getBody().get(INDEX).getDescricao());
-        assertEquals(VIGENCIA, response.getBody().get(INDEX).getVigencia());
-        assertEquals(PRECO, response.getBody().get(INDEX).getPreco());
-        assertEquals(QTD, response.getBody().get(INDEX).getQuantidadeMeses());
+        assertEquals(PlanoDTO.class, response.getBody().get(INDEX).getClass());
+        assertEquals(ID, response.getBody().get(INDEX).id_plano());
+        assertEquals(DESCRICAO, response.getBody().get(INDEX).descricao());
+        assertEquals(VIGENCIA, response.getBody().get(INDEX).vigencia());
+        assertEquals(PRECO, response.getBody().get(INDEX).preco());
+        assertEquals(QTD, response.getBody().get(INDEX).quantidadeMeses());
     }
 
     @Test
     void whenFindByIdThenReturnSuccess() {
-        when(service.findById(anyLong())).thenReturn(plano);
+        when(service.findById(anyLong())).thenReturn(planoDTO);
 
-        ResponseEntity<Plano> response = controller.findById(ID);
+        ResponseEntity<PlanoDTO> response = controller.findById(ID);
 
         assertNotNull(response);
         assertNotNull(response.getBody());
 
-        assertEquals(ID, response.getBody().getId_plano());
-        assertEquals(DESCRICAO, response.getBody().getDescricao());
-        assertEquals(VIGENCIA, response.getBody().getVigencia());
-        assertEquals(PRECO, response.getBody().getPreco());
-        assertEquals(QTD, response.getBody().getQuantidadeMeses());
+        assertEquals(ID, response.getBody().id_plano());
+        assertEquals(DESCRICAO, response.getBody().descricao());
+        assertEquals(VIGENCIA, response.getBody().vigencia());
+        assertEquals(PRECO, response.getBody().preco());
+        assertEquals(QTD, response.getBody().quantidadeMeses());
     }
 
     @Test
     void whenCreateThenReturnCreated() {
-        when(service.create(any())).thenReturn(plano);
+        when(service.create(any())).thenReturn(planoDTO);
 
-        ResponseEntity<Plano> response = controller.create(planoDTO);
+        ResponseEntity<PlanoDTO> response = controller.create(planoDTO);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(ResponseEntity.class, response.getClass());
 
@@ -93,20 +91,20 @@ class PlanoControllerTest {
 
     @Test
     void whenUpdateThenReturnSuccess() {
-        when(service.update(anyLong(), any())).thenReturn(plano);
+        when(service.update(anyLong(), any())).thenReturn(planoDTO);
 
-        ResponseEntity<Plano> response = controller.update(ID, planoDTO);
+        ResponseEntity<PlanoDTO> response = controller.update(ID, planoDTO);
         assertNotNull(response);
         assertNotNull(response.getBody());
         assertEquals(ResponseEntity.class, response.getClass());
-        assertEquals(Plano.class, response.getBody().getClass());
+        assertEquals(PlanoDTO.class, response.getBody().getClass());
         assertEquals(HttpStatus.OK, response.getStatusCode());
 
-        assertEquals(ID, response.getBody().getId_plano());
-        assertEquals(DESCRICAO, response.getBody().getDescricao());
-        assertEquals(VIGENCIA, response.getBody().getVigencia());
-        assertEquals(PRECO, response.getBody().getPreco());
-        assertEquals(QTD, response.getBody().getQuantidadeMeses());
+        assertEquals(ID, response.getBody().id_plano());
+        assertEquals(DESCRICAO, response.getBody().descricao());
+        assertEquals(VIGENCIA, response.getBody().vigencia());
+        assertEquals(PRECO, response.getBody().preco());
+        assertEquals(QTD, response.getBody().quantidadeMeses());
 
     }
 
@@ -123,6 +121,5 @@ class PlanoControllerTest {
 
     private void startPlano() {
         planoDTO = new PlanoDTO(ID, DESCRICAO, VIGENCIA,  PRECO, QTD);
-        plano = new Plano(ID, DESCRICAO, VIGENCIA, PRECO, QTD);
     }
 }

@@ -4,9 +4,12 @@ import br.janioofi.msemail.domain.dtos.EmailDto;
 import br.janioofi.msgym.configs.producer.EmailProducer;
 import br.janioofi.msgym.domain.dtos.ClienteDTO;
 import br.janioofi.msgym.domain.entities.Cliente;
+import br.janioofi.msgym.domain.entities.Pagamento;
 import br.janioofi.msgym.domain.entities.Plano;
 import br.janioofi.msgym.domain.repositories.ClienteRepository;
+import br.janioofi.msgym.domain.repositories.PagamentoRepository;
 import br.janioofi.msgym.domain.repositories.PlanoRepository;
+import br.janioofi.msgym.exceptions.InvalidException;
 import br.janioofi.msgym.exceptions.RecordNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +30,7 @@ public class ClienteService {
     private final EmailProducer producer;
     private final ClienteRepository repository;
     private final PlanoRepository planoRepository;
+    private final PagamentoRepository pagamentoRepository;
 
     public List<ClienteDTO> findAll(){
         log.info("Listando todos os clientes");
@@ -65,6 +69,7 @@ public class ClienteService {
 
     public void delete(Long id){
         log.info("Deletando cliente com  ID: " + id);
+        validaDelete(id);
         repository.deleteById(id);
     }
     
@@ -86,7 +91,7 @@ public class ClienteService {
         return this.mapToDTO(cliente);
     }
 
-    public void validaCpfEEmail(ClienteDTO clienteDTO){
+    private void validaCpfEEmail(ClienteDTO clienteDTO){
         Optional<Cliente> obj = repository.findByCpf(clienteDTO.cpf());
 
         if (obj.isPresent() && !obj.get().getId_cliente().equals(clienteDTO.id_cliente())) {
@@ -99,7 +104,14 @@ public class ClienteService {
         }
     }
 
-    public void sendEmailCliente(Cliente cliente){
+    private void validaDelete(Long id_cliente){
+        Optional<List<Pagamento>> pagamentos = pagamentoRepository.pagamentosPorCliente(id_cliente);
+        if(pagamentos.isPresent()){
+            throw new InvalidException("Cliente não pode ser deletado pois existe pagamento(s) associados a ele");
+        }
+    }
+
+    private void sendEmailCliente(Cliente cliente){
         EmailDto email = new EmailDto(cliente.getEmail(), "Cadastro na Social Gym", "Seja-bem vinda(o) a nossa academia, estamos muito contentes com sua chegada ao nosso time. \nVeja alguns detalhes do seu cadastro: "+
                 "\nPlano: " + cliente.getPlano().getDescricao() +
                 "\nValor: R$ " + cliente.getPlano().getPreco() +

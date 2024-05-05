@@ -39,6 +39,8 @@ class PagamentoServiceTest {
     private static final FormaPagamento FORMA_PAGAMENTO = FormaPagamento.PIX;
     private static final BigDecimal VALOR = BigDecimal.valueOf(90);
     private static final LocalDateTime DATA_PAGAMENTO = LocalDateTime.now();
+    private static final LocalDateTime DATA_ATUALIZACAO = LocalDateTime.now();
+    private static final String OBSERVACAO = "Teste";
     private static final Plano PLANO = new Plano(1L, "Teste",  LocalDate.now(), BigDecimal.valueOf(90), 1L);
     private static final Cliente CLIENTE = new Cliente(1L, "Janio", "Filho", "Nen", "52315278821", "janio@gmail.com",  LocalDate.of(2001, Month.JUNE, 1), PLANO, LocalDate.now(), LocalDateTime.now());
 
@@ -71,15 +73,16 @@ class PagamentoServiceTest {
     @Test
     void whenFindByIdThenReturnAPagamentoInstance() {
         when(repository.findById(anyLong())).thenReturn(optionalPagamento);
-        Pagamento response = service.findById(ID);
+        PagamentoDTO response = service.findById(ID);
         assertNotNull(response);
-        assertEquals(Pagamento.class, response.getClass());
-        assertEquals(ID, response.getId_pagamento());
-        assertEquals(FORMA_PAGAMENTO, response.getForma_pagamento());
-        assertEquals(DATA_PAGAMENTO, response.getData_pagamento());
-        assertEquals(VALOR, response.getValor());
-        assertEquals(CLIENTE, response.getCliente());
-        assertEquals(PLANO, response.getPlano());
+        assertEquals(PagamentoDTO.class, response.getClass());
+        assertEquals(ID, response.id_pagamento());
+        assertEquals(FORMA_PAGAMENTO, response.forma_pagamento());
+        assertEquals(DATA_PAGAMENTO, response.data_pagamento());
+        assertEquals(VALOR, response.valor());
+        assertEquals(CLIENTE.getId_cliente(), response.id_cliente());
+        assertEquals(CLIENTE.getNome(), response.cliente());
+        assertEquals(PLANO.getDescricao(), response.plano());
     }
 
     @Test
@@ -97,16 +100,17 @@ class PagamentoServiceTest {
     @Test
     void whenFindAllThenReturnAListOfPagamentos() {
         when(repository.findAll()).thenReturn(List.of(pagamento));
-        List<Pagamento> response = service.findAll();
+        List<PagamentoDTO> response = service.findAll();
         assertNotNull(response);
         assertEquals(1, response.size());
-        assertEquals(Pagamento.class, response.get(INDEX).getClass());
-        assertEquals(ID, response.get(INDEX).getId_pagamento());
-        assertEquals(FORMA_PAGAMENTO, response.get(INDEX).getForma_pagamento());
-        assertEquals(DATA_PAGAMENTO, response.get(INDEX).getData_pagamento());
-        assertEquals(VALOR, response.get(INDEX).getValor());
-        assertEquals(CLIENTE, response.get(INDEX).getCliente());
-        assertEquals(PLANO, response.get(INDEX).getPlano());
+        assertEquals(PagamentoDTO.class, response.get(INDEX).getClass());
+        assertEquals(ID, response.get(INDEX).id_pagamento());
+        assertEquals(FORMA_PAGAMENTO, response.get(INDEX).forma_pagamento());
+        assertEquals(DATA_PAGAMENTO, response.get(INDEX).data_pagamento());
+        assertEquals(VALOR, response.get(INDEX).valor());
+        assertEquals(CLIENTE.getId_cliente(), response.get(INDEX).id_cliente());
+        assertEquals(CLIENTE.getNome(), response.get(INDEX).cliente());
+        assertEquals(PLANO.getDescricao(), response.get(INDEX).plano());
     }
 
     @Test
@@ -115,16 +119,17 @@ class PagamentoServiceTest {
         when(clienteRepository.findById(anyLong())).thenReturn(optionalCliente);
         when(repository.save(any())).thenReturn(pagamento);
 
-        Pagamento response = service.create(pagamentoDTO);
+        PagamentoDTO response = service.create(pagamentoDTO);
 
         assertNotNull(response);
-        assertEquals(Pagamento.class, response.getClass());
-        assertEquals(ID, response.getId_pagamento());
-        assertEquals(FORMA_PAGAMENTO, response.getForma_pagamento());
-        assertEquals(DATA_PAGAMENTO, response.getData_pagamento());
-        assertEquals(VALOR, response.getValor());
-        assertEquals(CLIENTE, response.getCliente());
-        assertEquals(PLANO, response.getPlano());
+        assertEquals(PagamentoDTO.class, response.getClass());
+        assertEquals(ID, response.id_pagamento());
+        assertEquals(FORMA_PAGAMENTO, response.forma_pagamento());
+        assertEquals(DATA_PAGAMENTO, response.data_pagamento());
+        assertEquals(VALOR, response.valor());
+        assertEquals(CLIENTE.getId_cliente(), response.id_cliente());
+        assertEquals(CLIENTE.getNome(), response.cliente());
+        assertEquals(PLANO.getDescricao(), response.plano());
     }
 
     @Test
@@ -133,7 +138,7 @@ class PagamentoServiceTest {
         when(clienteRepository.findById(anyLong())).thenReturn(optionalCliente);
         when(repository.save(any())).thenReturn(pagamento);
         try{
-            Pagamento response = service.create(pagamentoDTOError);
+            PagamentoDTO response = service.create(pagamentoDTOError);
         }catch (Exception e){
             assertEquals(InvalidException.class, e.getClass());
         }
@@ -151,10 +156,10 @@ class PagamentoServiceTest {
     }
 
     private void startPagamento() {
-        pagamento = new Pagamento(ID, DATA_PAGAMENTO, FORMA_PAGAMENTO,  CLIENTE, PLANO, VALOR);
-        pagamentoDTO = new PagamentoDTO(ID, FORMA_PAGAMENTO, 1L, VALOR);
-        pagamentoDTOError = new PagamentoDTO(ID, FORMA_PAGAMENTO, 1L, BigDecimal.valueOf(30));
-        optionalPagamento = Optional.of(new Pagamento(ID, DATA_PAGAMENTO, FORMA_PAGAMENTO,  CLIENTE, PLANO, VALOR));
+        pagamento = new Pagamento(ID, DATA_PAGAMENTO, DATA_ATUALIZACAO, FORMA_PAGAMENTO, CLIENTE, PLANO, VALOR, OBSERVACAO);
+        pagamentoDTO = new PagamentoDTO(ID, DATA_PAGAMENTO, DATA_ATUALIZACAO, FORMA_PAGAMENTO, PLANO.getDescricao(), CLIENTE.getNome(), 1L, VALOR, OBSERVACAO);
+        pagamentoDTOError = new PagamentoDTO(ID, DATA_PAGAMENTO, DATA_ATUALIZACAO, FORMA_PAGAMENTO, PLANO.getDescricao(), CLIENTE.getNome(), 1L, BigDecimal.valueOf(30), OBSERVACAO);
+        optionalPagamento = Optional.of(new Pagamento(ID, DATA_PAGAMENTO, DATA_ATUALIZACAO, FORMA_PAGAMENTO, CLIENTE, PLANO, VALOR, OBSERVACAO));
         optionalCliente = Optional.of(CLIENTE);
         optionalPlano = Optional.of(PLANO);
     }

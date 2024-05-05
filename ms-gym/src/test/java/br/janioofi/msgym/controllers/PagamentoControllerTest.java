@@ -2,7 +2,6 @@ package br.janioofi.msgym.controllers;
 
 import br.janioofi.msgym.domain.dtos.PagamentoDTO;
 import br.janioofi.msgym.domain.entities.Cliente;
-import br.janioofi.msgym.domain.entities.Pagamento;
 import br.janioofi.msgym.domain.entities.Plano;
 import br.janioofi.msgym.domain.enums.FormaPagamento;
 import br.janioofi.msgym.domain.services.PagamentoService;
@@ -35,6 +34,7 @@ class PagamentoControllerTest {
     private static final FormaPagamento FORMA_PAGAMENTO = FormaPagamento.PIX;
     private static final BigDecimal VALOR = BigDecimal.valueOf(90);
     private static final LocalDateTime DATA_PAGAMENTO = LocalDateTime.now();
+    private static final LocalDateTime DATA_ATUALIZACAO = LocalDateTime.now();
     private static final Plano PLANO = new Plano(1L, "Teste",  LocalDate.now(), BigDecimal.valueOf(20), 1L);
     private static final Cliente CLIENTE = new Cliente(1L, "Janio", "Filho", "Nen", "52315278821", "janio@gmail.com",  LocalDate.of(2001, Month.JUNE, 1), PLANO, LocalDate.now(), LocalDateTime.now());
 
@@ -44,7 +44,6 @@ class PagamentoControllerTest {
     @Mock
     private PagamentoService service;
 
-    private Pagamento pagamento;
     private PagamentoDTO pagamentoDTO;
 
     @BeforeEach
@@ -56,48 +55,50 @@ class PagamentoControllerTest {
 
     @Test
     void whenFindAllThenReturnListOfPagamento() {
-        when(service.findAll()).thenReturn(List.of(pagamento));
+        when(service.findAll()).thenReturn(List.of(pagamentoDTO));
 
-        ResponseEntity<List<Pagamento>> response = controller.findAll();
+        ResponseEntity<List<PagamentoDTO>> response = controller.findAll();
         assertNotNull(response);
         assertNotNull(response.getBody());
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(ResponseEntity.class, response.getClass());
-        assertEquals(Pagamento.class, response.getBody().get(INDEX).getClass());
-        assertEquals(ID, response.getBody().get(INDEX).getId_pagamento());
-        assertEquals(DATA_PAGAMENTO, response.getBody().get(INDEX).getData_pagamento());
-        assertEquals(FORMA_PAGAMENTO, response.getBody().get(INDEX).getForma_pagamento());
-        assertEquals(VALOR, response.getBody().get(INDEX).getValor());
-        assertEquals(PLANO, response.getBody().get(INDEX).getPlano());
-        assertEquals(CLIENTE, response.getBody().get(INDEX).getCliente());
-
+        assertEquals(PagamentoDTO.class, response.getBody().get(INDEX).getClass());
+        assertEquals(ID, response.getBody().get(INDEX).id_pagamento());
+        assertEquals(DATA_PAGAMENTO, response.getBody().get(INDEX).data_pagamento());
+        assertEquals(DATA_ATUALIZACAO, response.getBody().get(INDEX).data_atualizacao());
+        assertEquals(FORMA_PAGAMENTO, response.getBody().get(INDEX).forma_pagamento());
+        assertEquals(VALOR, response.getBody().get(INDEX).valor());
+        assertEquals(PLANO.getDescricao(), response.getBody().get(INDEX).plano());
+        assertEquals(CLIENTE.getId_cliente(), response.getBody().get(INDEX).id_cliente());
+        assertEquals(CLIENTE.getNome(), response.getBody().get(INDEX).cliente());
     }
 
     @Test
     void whenFindByIdThenReturnSuccess() {
-        when(service.findById(anyLong())).thenReturn(pagamento);
+        when(service.findById(anyLong())).thenReturn(pagamentoDTO);
 
-        ResponseEntity<Pagamento> response = controller.findById(ID);
+        ResponseEntity<PagamentoDTO> response = controller.findById(ID);
 
         assertNotNull(response);
         assertNotNull(response.getBody());
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(ResponseEntity.class, response.getClass());
-        assertEquals(Pagamento.class, response.getBody().getClass());
-        assertEquals(ID, response.getBody().getId_pagamento());
-        assertEquals(DATA_PAGAMENTO, response.getBody().getData_pagamento());
-        assertEquals(FORMA_PAGAMENTO, response.getBody().getForma_pagamento());
-        assertEquals(VALOR, response.getBody().getValor());
-        assertEquals(PLANO, response.getBody().getPlano());
-        assertEquals(CLIENTE, response.getBody().getCliente());
+        assertEquals(PagamentoDTO.class, response.getBody().getClass());
+        assertEquals(ID, response.getBody().id_pagamento());
+        assertEquals(DATA_PAGAMENTO, response.getBody().data_pagamento());
+        assertEquals(FORMA_PAGAMENTO, response.getBody().forma_pagamento());
+        assertEquals(VALOR, response.getBody().valor());
+        assertEquals(PLANO.getDescricao(), response.getBody().plano());
+        assertEquals(CLIENTE.getId_cliente(), response.getBody().id_cliente());
+        assertEquals(CLIENTE.getNome(), response.getBody().cliente());
     }
 
     @Test
     void whenCreateThenReturnCreated() {
-        when(service.create(any())).thenReturn(pagamento);
+        when(service.create(any())).thenReturn(pagamentoDTO);
 
-        ResponseEntity<Pagamento> response = controller.create(pagamentoDTO);
+        ResponseEntity<PagamentoDTO> response = controller.create(pagamentoDTO);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(ResponseEntity.class, response.getClass());
 
@@ -105,25 +106,25 @@ class PagamentoControllerTest {
 
     @Test
     void whenUpdateThenReturnSuccess() {
-        when(service.update(anyLong(), any())).thenReturn(pagamento);
+        when(service.update(anyLong(), any())).thenReturn(pagamentoDTO);
 
-        ResponseEntity<Pagamento> response = controller.update(ID, pagamentoDTO);
+        ResponseEntity<PagamentoDTO> response = controller.update(ID, pagamentoDTO);
         assertNotNull(response);
         assertNotNull(response.getBody());
-        assertEquals(ResponseEntity.class, response.getClass());
+
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(Pagamento.class, response.getBody().getClass());
-        assertEquals(ID, response.getBody().getId_pagamento());
-        assertEquals(DATA_PAGAMENTO, response.getBody().getData_pagamento());
-        assertEquals(FORMA_PAGAMENTO, response.getBody().getForma_pagamento());
-        assertEquals(VALOR, response.getBody().getValor());
-        assertEquals(PLANO, response.getBody().getPlano());
-        assertEquals(CLIENTE, response.getBody().getCliente());
-        assertEquals(PLANO, response.getBody().getPlano());
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(PagamentoDTO.class, response.getBody().getClass());
+        assertEquals(ID, response.getBody().id_pagamento());
+        assertEquals(DATA_PAGAMENTO, response.getBody().data_pagamento());
+        assertEquals(FORMA_PAGAMENTO, response.getBody().forma_pagamento());
+        assertEquals(VALOR, response.getBody().valor());
+        assertEquals(PLANO.getDescricao(), response.getBody().plano());
+        assertEquals(CLIENTE.getId_cliente(), response.getBody().id_cliente());
+        assertEquals(CLIENTE.getNome(), response.getBody().cliente());
     }
 
     private void startPagamento() {
-        pagamento = new Pagamento(ID, DATA_PAGAMENTO, FORMA_PAGAMENTO,  CLIENTE, PLANO, VALOR);
-        pagamentoDTO = new PagamentoDTO(ID, FORMA_PAGAMENTO, 1L, VALOR);
+        pagamentoDTO = new PagamentoDTO(ID, DATA_PAGAMENTO, DATA_ATUALIZACAO, FORMA_PAGAMENTO, PLANO.getDescricao(), CLIENTE.getNome(), 1L, VALOR, "");
     }
 }
