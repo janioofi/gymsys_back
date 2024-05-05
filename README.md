@@ -1,5 +1,8 @@
 ## Back-end do sistema GymSys 💻
 
+### O que é este projeto
+Este é um projeto API Rest de um sistema de gerenciamento de uma acadêmia.
+
 ### Foi utilizado
 - Spring Boot
 - Maven
