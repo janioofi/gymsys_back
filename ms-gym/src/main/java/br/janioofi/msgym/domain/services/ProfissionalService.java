@@ -1,7 +1,7 @@
 package br.janioofi.msgym.domain.services;
 
-import br.janioofi.msemail.domain.dtos.EmailDto;
 import br.janioofi.msgym.configs.producer.EmailProducer;
+import br.janioofi.msgym.domain.dtos.EmailDto;
 import br.janioofi.msgym.domain.dtos.ProfissionalDTO;
 import br.janioofi.msgym.domain.entities.Profissional;
 import br.janioofi.msgym.domain.entities.Usuario;
@@ -73,7 +73,7 @@ public class ProfissionalService {
                 recordFound.setCpf(data.cpf());
                 recordFound.setEmail(data.email());
                 recordFound.setData_nascimento(data.data_nascimento());
-                recordFound.setData_admissao(data.data_nascimento());
+                recordFound.setData_admissao(data.data_admissao());
                 return repository.save(recordFound);
             }).orElseThrow(() -> new RecordNotFoundException("Nenhum profissional encontrado com o ID: " + id));
         return this.mapToDTO(prof);

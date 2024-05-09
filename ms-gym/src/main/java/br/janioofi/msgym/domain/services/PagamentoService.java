@@ -1,7 +1,7 @@
 package br.janioofi.msgym.domain.services;
 
-import br.janioofi.msemail.domain.dtos.EmailDto;
 import br.janioofi.msgym.configs.producer.EmailProducer;
+import br.janioofi.msgym.domain.dtos.EmailDto;
 import br.janioofi.msgym.domain.dtos.PagamentoDTO;
 import br.janioofi.msgym.domain.entities.Cliente;
 import br.janioofi.msgym.domain.entities.Pagamento;
@@ -52,8 +52,8 @@ public class PagamentoService {
         pagamento.setObservacao(pagamentoDTO.observacao());
 
         log.info("Novo pagamento gerado: " + pagamento);
-        sendEmailPagamentoRealizado(cliente, plano, pagamento);
         verificaPagamento(pagamento, plano);
+        sendEmailPagamentoRealizado(cliente, plano, pagamento);
         return this.mapToDTO(repository.save(pagamento));
     }
 

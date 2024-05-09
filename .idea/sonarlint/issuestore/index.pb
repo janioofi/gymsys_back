@@ -389,3 +389,15 @@ y
 Ims-gym/src/main/java/br/janioofi/msgym/domain/dtos/AcessoResponseDTO.java,6\3\6375f4c7105f6cec61ac65afb22bda48e89dfb5c
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+b
+2eurekaserver/.mvn/wrapper/maven-wrapper.properties,4\4\444f3a07255ace84df7375c37d1b54989dfd24c0
+G
+eurekaserver/Dockerfile,2\b\2b0fbfd6af857f5a7e361a7917ef24fc34511854
+A
+ms-gym/Dockerfile,e\9\e9231edf0da8561cd516bcf9f44dab64f73bf590
+C
+ms-email/Dockerfile,6\9\6952984549fa17c3467b07b3992cb055d721761f
+p
+@ms-gym/src/main/java/br/janioofi/msgym/domain/dtos/EmailDto.java,9\6\96df8281756d7c49e4e875dcd6bbfeb91504f12b
+J
+ms-cloudgateway/Dockerfile,d\8\d85751113410e2ef0aa232a92957f8a730cf6ae8

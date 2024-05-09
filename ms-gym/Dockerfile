@@ -1,0 +1,13 @@
+FROM openjdk:17
+WORKDIR /app
+COPY ./target/ms-gym-1.0.jar app.jar
+
+ARG URL
+ARG USER
+ARG PASSWORD
+ARG RABBITMQ
+ARG QUEUE
+ARG EUREKA
+ARG MY_SECRET
+
+ENTRYPOINT java -jar app.jar

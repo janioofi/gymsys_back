@@ -1,6 +1,6 @@
 package br.janioofi.msgym.configs.producer;
 
-import br.janioofi.msemail.domain.dtos.EmailDto;
+import br.janioofi.msgym.domain.dtos.EmailDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;

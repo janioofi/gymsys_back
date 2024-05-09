@@ -1,7 +1,7 @@
 package br.janioofi.msgym.domain.services;
 
-import br.janioofi.msemail.domain.dtos.EmailDto;
 import br.janioofi.msgym.configs.producer.EmailProducer;
+import br.janioofi.msgym.domain.dtos.EmailDto;
 import br.janioofi.msgym.domain.entities.Acesso;
 import br.janioofi.msgym.domain.entities.Cliente;
 import br.janioofi.msgym.domain.entities.Pagamento;

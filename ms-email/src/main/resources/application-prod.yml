@@ -2,12 +2,12 @@ spring:
   application:
     name: ms-email
   datasource:
-    url: jdbc:postgresql://localhost:5432/email
-    username: postgres
-    password: 12345678
+    url: ${URL}
+    username: ${USER}
+    password: ${PASSWORD}
     driver-class-name: org.postgresql.Driver
   rabbitmq:
-    addresses: ${RABBIT_MQ}
+    addresses: ${RABBITMQ}
   jpa:
     hibernate:
       ddl-auto: update
@@ -20,18 +20,17 @@ spring:
       starttls.required: true
       ssl.trust: smtp.gmail.com
     username: ${EMAIL}
-    password: ${PASSWORD}
+    password: ${PASSWORD_EMAIL}
 server:
   port: 0
 
 mq:
   queues:
-    ms-email: ms-email
-
+    ms-email: ${QUEUE}
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://${EUREKA}:8761/eureka
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}

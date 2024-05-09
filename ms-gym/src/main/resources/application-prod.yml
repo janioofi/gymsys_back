@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: ms-gym
+  rabbitmq:
+    addresses: ${RABBITMQ}
+  datasource:
+    url: ${URL}
+    username: ${USER}
+    password: ${PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 0
+
+mq:
+  queues:
+    ms-email: ${QUEUE}
+
+api:
+  security:
+    token:
+      secret: ${MY_SECRET}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA}:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
